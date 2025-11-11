@@ -1,0 +1,176 @@
+/* Estilos para el componente Login */
+
+.login-bg {
+  min-height: 100vh;
+  width: 100vw;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #0a2540 0%, #ff9100 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -2;
+}
+
+.login-container {
+  background: rgba(255,255,255,0.12);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  width: 400px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+}
+
+.login-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-options {
+  width: 100%;
+}
+
+.login-buttons-row {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 20px;
+}
+
+/* Contenedor relativo para la línea indicadora */
+.login-buttons-row {
+  position: relative;
+  padding-bottom: 12px; /* espacio para la línea */
+}
+
+.login-btn-select {
+  background: none; /* sin relleno */
+  border: none;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 0; /* sin padding visual, el span recibe el padding */
+  margin-bottom: 6px; /* espacio visual para el indicador */
+  cursor: pointer;
+  outline: none;
+  transition: color 0.15s;
+  position: relative;
+}
+
+.login-btn-select.selected {
+  /* Slight emphasis on selected text */
+  color: #fff;
+}
+
+/* Label inside button - provides clickable padding but keeps button visual empty */
+.login-btn-label {
+  display: inline-block;
+  padding: 8px 16px;
+  line-height: 1;
+}
+
+/* Línea indicadora que se desliza debajo de los botones */
+.login-underline {
+  position: absolute;
+  height: 4px;
+  background: #fff;
+  bottom: 0;
+  left: 0;
+  border-radius: 2px;
+  transition: left 250ms cubic-bezier(.2,.8,.2,1), width 250ms cubic-bezier(.2,.8,.2,1);
+}
+
+.login-input {
+  width: 373px;
+  height: 63px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  outline: none;
+  margin-bottom: 14px;
+}
+
+.login-input:last-of-type {
+  margin-bottom: 10px;
+}
+
+.login-forgot {
+  width: 373px;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.login-forgot span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #fff;
+}
+
+.login-btn-main {
+  width: 373px;
+  height: 45px;
+  background: #F6A120;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 10px;
+}
+
+.login-btn-facebook {
+  width: 373px;
+  height: 45px;
+  background: #3B5998;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+}
+
+.login-btn-facebook span {
+  flex: 1;
+  text-align: center;
+}
+
+.login-btn-facebook svg {
+  margin-right: 12px;
+}
+
+.login-register {
+  width: 373px;
+  text-align: center;
+}
+
+.login-register span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #fff;
+}
