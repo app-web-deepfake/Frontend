@@ -1,16 +1,13 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-
+import Register from './pages/Register'
+import { UserProvider } from './context/UserContext'
+import './App.css'
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        
-      </Routes>
-    </BrowserRouter>
-  );
+    <UserProvider>
+      <Register />
+    </UserProvider>
+  )
 }
 
 export default App;
