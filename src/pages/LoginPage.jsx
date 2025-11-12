@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
 import "../styles/login.css";
+import {useNavigate} from "react-router-dom";
 
 // ✅ Cargar fuente Montserrat
 const montserratFont = document.createElement("link");
@@ -9,6 +10,7 @@ montserratFont.href =
 document.head.appendChild(montserratFont);
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [role, setRole] = useState("usuario");
   const btnRefs = useRef([]);
   const labelRefs = useRef([]);
@@ -20,6 +22,7 @@ export default function LoginPage() {
     const userData = { email, role };
     console.log("Usuario autenticado:", userData);
     // Aquí podrías redirigir o guardar token
+      navigate("/home");
   };
 
   const botones = [
@@ -127,8 +130,8 @@ export default function LoginPage() {
             <span>Iniciar Sesión con Facebook</span>
           </button>
 
-          <div className="login-register">
-            <span>¿No tienes cuenta? Regístrate aquí.</span>
+          <div className="login-register">¿No tienes cuenta?
+              <a href="./register"> Registrate aquí</a>
           </div>
         </div>
       </div>
