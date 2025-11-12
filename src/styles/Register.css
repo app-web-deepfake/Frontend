@@ -1,0 +1,132 @@
+
+
+.register-page {
+  min-height: 100vh;
+  width: 100vw;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #0a2540 0%, #ff9100 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.register-container {
+  width: 400px;
+  min-height: 180px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+input {
+  width: 373px;
+  height: 63px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: #666;
+}
+
+input {
+  width: 373px;
+  height: 63px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.create-account-btn, .facebook-btn {
+  width: 373px;
+  height: 45px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.create-account-btn {
+  background: #F6A120;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-account-btn:hover {
+  background: #e59315;
+}
+
+.facebook-btn {
+  background: #3B5998;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.3s;
+}
+
+.facebook-btn:hover {
+  background: #344e86;
+}
+
+.login-link {
+  margin-top: 20px;
+  color: white;
+  text-align: center;
+}
+
+.login-link a {
+  color: #F6A120;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #ff4444;
+  font-size: 14px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.success-message {
+  color: #4CAF50;
+  font-size: 14px;
+  margin: 10px 0;
+  text-align: center;
+}
