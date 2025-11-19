@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import '../styles/Home.css';
+import Upload from "../components/Upload.jsx";
+import {useNavigate} from "react-router-dom";
+
 
 const Home = () => {
+    const [showUpload, setShowUpload] = useState(false);
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
 
-    const handleSubmit = () => {
-        console.log('Form submitted:', { email, message });
-        // Aquí puedes agregar la lógica para enviar el formulario
+    // handler que pasamos al modal para recibir resultado final y redirigir
+    const handleUploadComplete = ({ fileId, analysis }) => {
+        // redirigimos a /result pasando estado (o guardamos fileId y hacer fetch en ResultPage)
+        navigate('/result', { state: { fileId, analysis } });
     };
 
     return (
@@ -26,11 +32,15 @@ const Home = () => {
 
             {/* Hero Section */}
             <section className="hero-section">
-                <h1 className="hero-title">¿No sabes si es real?<br />Veámos</h1>
+                <h1 className="hero-title">¿No sabes si es real?<br/>Veámos</h1>
                 <p className="hero-subtitle">
                     Algunos videos o imágenes pueden ser manipulados, <span className="text-warning">ten cuidado</span>.
                 </p>
-                <button className="upload-button">
+
+                <button
+                    className="upload-button"
+                    onClick={() => setShowUpload(true)}
+                >
                     <span className="upload-icon">↑</span>
                     Sube una imagen o video
                 </button>
@@ -98,12 +108,19 @@ const Home = () => {
                             onChange={(e) => setMessage(e.target.value)}
                             rows="4"
                         />
-                        <button onClick={handleSubmit} className="submit-button">Enviar</button>
+                        <button className="submit-button">Enviar</button>
                     </div>
                 </div>
             </section>
+            {showUpload && <Upload onClose={() => setShowUpload(false)} />}
+
+            {/* Modal Upload */}
+            {showUpload && (
+                <Upload
+                    onClose={() => setShowUpload(false)}
+                />
+            )}
         </div>
     );
 };
-
 export default Home;
