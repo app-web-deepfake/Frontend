@@ -1,4 +1,7 @@
-const API_URL = import.meta.env.RENDER_API_URL || "http://localhost:4000";
+// api.js - Frontend
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
+console.log("🌐 API URL configurada:", API_URL); // Para debug
 
 // ✅ 1. OBTENER URL PRESIGNADA
 export const getPresignedUrl = async (fileName, fileType) => {
