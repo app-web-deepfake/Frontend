@@ -116,8 +116,8 @@ export default function ResultPage() {
     }
 
     // Determinar si es deepfake o no
-    const isDeepfake = result.status === 0;
-    const confidence = (result.deepfake_score * 100).toFixed(1);
+    const isDeepfake = result.isDeepfake;
+    const confidence = result.confidence;
 
     return (
         <div className="result-page">
@@ -158,7 +158,7 @@ export default function ResultPage() {
                     <h2 className="results-title">Resultados</h2>
 
                     <div className={`result-status ${isDeepfake ? 'fake' : 'real'}`}>
-                        {isDeepfake ? 'El video es falso' : 'El contenido es auténtico'}
+                        {isDeepfake ? 'El contenido es falso' : 'El contenido es auténtico'}
                     </div>
 
                     <div className="result-description">
@@ -185,7 +185,7 @@ export default function ResultPage() {
                             </div>
                             <div className="tech-row">
                                 <span>ID de referencia:</span>
-                                <strong className="mono">{result.reference_id}</strong>
+                                <strong className="mono">{result.analysisId}</strong>
                             </div>
                             {result.decline_reason && (
                                 <div className="tech-row">
