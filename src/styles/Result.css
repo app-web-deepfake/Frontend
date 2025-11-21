@@ -3,54 +3,7 @@
 .result-page {
     min-height: 100vh;
     background-color: #ffffff;
-}
-
-/* ========== HEADER ========== */
-.result-header {
-    background-color: #407FC2;
-    padding: 1.25rem 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.result-nav {
-    display: flex;
-    gap: 3rem;
-}
-
-.result-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-    transition: opacity 0.3s;
-}
-
-.result-nav a:hover {
-    opacity: 0.85;
-}
-
-.user-avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid white;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.user-avatar:hover {
-    transform: scale(1.05);
-}
-
-.user-avatar img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 /* ========== MAIN CONTENT ========== */
@@ -75,6 +28,7 @@
     color: #718096;
     text-align: center;
     margin-bottom: 3rem;
+    line-height: 1.5;
 }
 
 /* ========== IMAGE PREVIEW ========== */
@@ -218,8 +172,10 @@
 .tech-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0.75rem 0;
     border-bottom: 1px solid #f0f0f0;
+    gap: 1rem;
 }
 
 .tech-row:last-child {
@@ -229,16 +185,19 @@
 .tech-row span {
     color: #718096;
     font-size: 0.95rem;
+    flex-shrink: 0;
 }
 
 .tech-row strong {
     color: #2d3748;
     font-size: 0.95rem;
+    text-align: right;
+    word-break: break-all;
 }
 
 .tech-row .mono {
     font-family: 'Courier New', monospace;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     background: #e2e8f0;
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
@@ -266,7 +225,7 @@
 
 .sources-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
 }
 
@@ -360,20 +319,6 @@
     margin-bottom: 1.5rem;
 }
 
-.comment-avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid white;
-}
-
-.comment-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 .comment-user {
     flex: 1;
 }
@@ -414,6 +359,7 @@
     font-family: inherit;
     resize: vertical;
     margin-bottom: 1rem;
+    box-sizing: border-box;
 }
 
 .comment-buttons {
@@ -531,22 +477,12 @@
     transform: translateY(-2px);
 }
 
-/* ========== RESPONSIVE ========== */
+/* ========================================
+   RESPONSIVE - TABLET (max 768px)
+   ======================================== */
 @media (max-width: 768px) {
-    .result-header {
-        padding: 1rem 2rem;
-    }
-
-    .result-nav {
-        gap: 1.5rem;
-    }
-
-    .result-nav a {
-        font-size: 1rem;
-    }
-
     .result-main {
-        padding: 2rem 1.5rem;
+        padding: 2rem 1.5rem 4rem;
     }
 
     .page-title {
@@ -555,10 +491,54 @@
 
     .page-subtitle {
         font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .image-preview-box {
+        padding: 2rem 1.5rem;
+        min-height: 250px;
+    }
+
+    .placeholder-image span {
+        font-size: 3rem;
+    }
+
+    .btn-eliminar {
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .results-title,
+    .sources-title,
+    .comments-title {
+        font-size: 1.5rem;
+    }
+
+    .result-status {
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .result-description p {
+        font-size: 1rem;
     }
 
     .sources-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .source-image {
+        height: 160px;
+    }
+
+    .source-content {
+        padding: 1.25rem;
+    }
+
+    .comment-card {
+        padding: 1.5rem;
     }
 
     .comment-buttons {
@@ -568,24 +548,270 @@
     .btn-enviar,
     .btn-cancelar {
         width: 100%;
+        padding: 0.875rem 1.5rem;
+    }
+
+    .loading-card h2,
+    .error-card h2 {
+        font-size: 1.75rem;
+    }
+
+    .spinner {
+        width: 60px;
+        height: 60px;
     }
 }
 
+/* ========================================
+   RESPONSIVE - MOBILE (max 480px)
+   ======================================== */
 @media (max-width: 480px) {
-    .result-header {
-        padding: 1rem;
-    }
-
-    .result-nav {
-        display: none;
+    .result-main {
+        padding: 1.5rem 1rem 3rem;
     }
 
     .page-title {
         font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
     }
 
     .image-preview-box {
-        padding: 2rem 1rem;
-        min-height: 250px;
+        padding: 1.5rem 1rem;
+        min-height: 200px;
+        border-radius: 10px;
+    }
+
+    .placeholder-image span {
+        font-size: 2.5rem;
+    }
+
+    .placeholder-image p {
+        font-size: 0.95rem;
+    }
+
+    .btn-eliminar {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .results-box {
+        margin-bottom: 3rem;
+    }
+
+    .results-title,
+    .sources-title,
+    .comments-title {
+        font-size: 1.35rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .result-status {
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        border-radius: 6px;
+    }
+
+    .result-description {
+        padding: 0;
+    }
+
+    .result-description p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Technical Info */
+    .technical-info {
+        padding: 0.875rem 1rem;
+    }
+
+    .technical-info summary {
+        font-size: 0.9rem;
+    }
+
+    .tech-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+        padding: 0.625rem 0;
+    }
+
+    .tech-row span {
+        font-size: 0.85rem;
+    }
+
+    .tech-row strong {
+        font-size: 0.85rem;
+        text-align: left;
+    }
+
+    .tech-row .mono {
+        font-size: 0.7rem;
+        word-break: break-all;
+    }
+
+    /* Sources */
+    .sources-section {
+        margin-bottom: 3rem;
+    }
+
+    .source-image {
+        height: 140px;
+    }
+
+    .source-content {
+        padding: 1rem;
+    }
+
+    .source-tag {
+        font-size: 0.7rem;
+    }
+
+    .source-text {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .source-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    /* Comments */
+    .comment-card {
+        padding: 1.25rem;
+        border-radius: 10px;
+    }
+
+    .comment-user strong {
+        font-size: 1rem;
+    }
+
+    .star {
+        font-size: 1.1rem;
+    }
+
+    .comment-textarea {
+        padding: 0.875rem;
+        font-size: 0.95rem;
+    }
+
+    .btn-enviar,
+    .btn-cancelar {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+    }
+
+    /* Loading & Error */
+    .loading-card,
+    .error-card {
+        padding: 3rem 1.5rem;
+    }
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border-width: 4px;
+    }
+
+    .loading-card h2,
+    .error-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .loading-card p,
+    .error-card p {
+        font-size: 1rem;
+    }
+
+    .error-icon {
+        font-size: 4rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - EXTRA SMALL (max 360px)
+   ======================================== */
+@media (max-width: 360px) {
+    .result-main {
+        padding: 1.25rem 0.75rem 2.5rem;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .results-title,
+    .sources-title,
+    .comments-title {
+        font-size: 1.25rem;
+    }
+
+    .result-status {
+        font-size: 0.95rem;
+        padding: 0.75rem;
+    }
+
+    .comment-card {
+        padding: 1rem;
+    }
+
+    .comment-user strong {
+        font-size: 0.95rem;
+    }
+
+    .star {
+        font-size: 1rem;
+    }
+}
+
+/* ========================================
+   LANDSCAPE MODE
+   ======================================== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .result-main {
+        padding: 1.5rem 2rem;
+    }
+
+    .page-title {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+        margin-bottom: 1.5rem;
+    }
+
+    .image-preview-box {
+        min-height: 180px;
+        padding: 1.5rem;
+    }
+
+    .loading-card,
+    .error-card {
+        padding: 2rem;
+    }
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1rem;
     }
 }

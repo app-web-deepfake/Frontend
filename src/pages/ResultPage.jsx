@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getAnalysisResult } from '../services/api';
 import '../styles/Result.css';
+import Navbar from "../components/Navbar.jsx";
 
 export default function ResultPage() {
     const { referenceId } = useParams();
@@ -76,16 +77,7 @@ export default function ResultPage() {
     if (loading) {
         return (
             <div className="result-page">
-                <header className="result-header">
-                    <nav className="result-nav">
-                        <a href="/home">Inicio</a>
-                        <a href="#historial">Historial</a>
-                        <a href="#recomendaciones">Recomendaciones</a>
-                    </nav>
-                    <div className="user-avatar">
-                        <img src="https://via.placeholder.com/40" alt="User" />
-                    </div>
-                </header>
+                <Navbar/>
 
                 <div className="result-main">
                     <div className="loading-card">
@@ -103,16 +95,7 @@ export default function ResultPage() {
     if (error) {
         return (
             <div className="result-page">
-                <header className="result-header">
-                    <nav className="result-nav">
-                        <a href="/home">Inicio</a>
-                        <a href="#historial">Historial</a>
-                        <a href="#recomendaciones">Recomendaciones</a>
-                    </nav>
-                    <div className="user-avatar">
-                        <img src="https://via.placeholder.com/40" alt="User" />
-                    </div>
-                </header>
+                <Navbar/>
 
                 <div className="result-main">
                     <div className="error-card">
@@ -139,16 +122,7 @@ export default function ResultPage() {
     return (
         <div className="result-page">
             {/* Header */}
-            <header className="result-header">
-                <nav className="result-nav">
-                    <a href="/home">Inicio</a>
-                    <a href="#historial">Historial</a>
-                    <a href="#recomendaciones">Recomendaciones</a>
-                </nav>
-                <div className="user-avatar">
-                    <img src="https://via.placeholder.com/40" alt="User" />
-                </div>
-            </header>
+            <Navbar/>
 
             {/* Main Content */}
             <div className="result-main">
@@ -272,9 +246,6 @@ export default function ResultPage() {
 
                     <div className="comment-card">
                         <div className="comment-header">
-                            <div className="comment-avatar">
-                                <img src="https://via.placeholder.com/40" alt="Usuario" />
-                            </div>
                             <div className="comment-user">
                                 <strong>Erick Rosas</strong>
                                 <div className="rating-stars">

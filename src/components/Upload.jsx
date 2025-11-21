@@ -15,6 +15,7 @@ export default function Upload({ onClose }) {
     const [file, setFile] = useState(null);
     const [error, setError] = useState('');
     const [uploading, setUploading] = useState(false);
+    const [consentAccepted, setConsentAccepted] = useState(false);
     const inputRef = useRef();
 
     const validateFile = (f) => {
@@ -44,6 +45,11 @@ export default function Upload({ onClose }) {
 
         if (!file) {
             setError('Selecciona un archivo');
+            return;
+        }
+
+        if (!consentAccepted) {
+            setError('Debes aceptar el tratamiento de datos para continuar');
             return;
         }
 
@@ -113,13 +119,52 @@ export default function Upload({ onClose }) {
                     />
                 </div>
 
+                {/* Sección de información de privacidad */}
+                <div className="privacy-info">
+                    <h3 className="privacy-title">Información sobre el tratamiento de datos</h3>
+                    <ul className="privacy-list">
+                        <li>
+                            <strong>Uso:</strong> Tu archivo será analizado mediante Inteligencia Artificial para detectar posibles manipulaciones deepfake.
+                        </li>
+                        <li>
+                            <strong>Servicio externo:</strong> El análisis se realiza a través de Facia AI, un servicio especializado en detección de deepfakes.
+                        </li>
+                        <li>
+                            <strong>Almacenamiento temporal:</strong> Los archivos se guardan de forma segura en Amazon S3 durante 7 días y luego se eliminan automáticamente.
+                        </li>
+                        <li>
+                            <strong>Confidencialidad:</strong> No compartimos tu contenido con terceros ni lo utilizamos para otros fines.
+                        </li>
+                    </ul>
+                </div>
+
+                {/* Checkbox de consentimiento */}
+                <div className="consent-container">
+                    <label className="consent-label">
+                        <input
+                            type="checkbox"
+                            checked={consentAccepted}
+                            onChange={(e) => setConsentAccepted(e.target.checked)}
+                            disabled={uploading}
+                            className="consent-checkbox"
+                        />
+                        <span className="consent-text">
+                            Acepto el tratamiento de mis datos para analizar el contenido mediante Inteligencia Artificial.
+                        </span>
+                    </label>
+                </div>
+
                 {error && <div className="upload-error">{error}</div>}
 
                 <div className="upload-actions">
                     <button className="btn secondary" onClick={onClose} disabled={uploading}>
                         Cancelar
                     </button>
-                    <button className="btn primary" onClick={handleSubmit} disabled={uploading}>
+                    <button
+                        className="btn primary"
+                        onClick={handleSubmit}
+                        disabled={uploading || !file || !consentAccepted}
+                    >
                         {uploading ? <span className="spinner" /> : 'Subir y Analizar'}
                     </button>
                 </div>

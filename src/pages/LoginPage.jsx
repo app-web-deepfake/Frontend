@@ -130,8 +130,8 @@ export default function LoginPage() {
             <span>Iniciar Sesión con Facebook</span>
           </button>
 
-          <div className="login-register">¿No tienes cuenta?
-              <a href="./register"> Registrate aquí</a>
+          <div className="login-register">¿No tienes cuenta?<b> </b>
+              <a href="./register">Registrate aquí</a>
           </div>
         </div>
       </div>

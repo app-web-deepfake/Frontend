@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/Home.css';
 import Upload from "../components/Upload.jsx";
 import {useNavigate} from "react-router-dom";
+import Navbar from "../components/Navbar.jsx";
 
 
 const Home = () => {
@@ -10,25 +11,14 @@ const Home = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
 
-    // handler que pasamos al modal para recibir resultado final y redirigir
     const handleUploadComplete = ({ fileId, analysis }) => {
-        // redirigimos a /result pasando estado (o guardamos fileId y hacer fetch en ResultPage)
         navigate('/result', { state: { fileId, analysis } });
     };
 
     return (
         <div className="home-container">
             {/* Header/Navigation */}
-            <header className="header">
-                <nav className="nav">
-                    <a href="#inicio" className="nav-link">Inicio</a>
-                    <a href="#historial" className="nav-link">Historial</a>
-                    <a href="#recomendaciones" className="nav-link">Recomendaciones</a>
-                </nav>
-                <div className="user-avatar">
-                    <img src="https://via.placeholder.com/40" alt="User" />
-                </div>
-            </header>
+            <Navbar />
 
             {/* Hero Section */}
             <section className="hero-section">
@@ -88,11 +78,6 @@ const Home = () => {
                 <p className="section-subtitle">Contacta con un administrador llenando el formulario</p>
 
                 <div className="contact-card">
-                    <div className="contact-header">
-                        <img src="https://via.placeholder.com/40" alt="Erick Rojas" className="contact-avatar" />
-                        <span className="contact-name">Erick Rojas</span>
-                    </div>
-
                     <div className="contact-form">
                         <input
                             type="email"
