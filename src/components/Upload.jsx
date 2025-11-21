@@ -56,7 +56,7 @@ export default function Upload({ onClose }) {
         try {
             setUploading(true);
 
-            console.log("📌 Archivo seleccionado:", file.name);
+            //console.log("📌 Archivo seleccionado:", file.name);
 
             // 1️⃣ Obtener URL presignada
             const { uploadUrl, fields, fileUrl } = await getPresignedUrl(
@@ -71,14 +71,14 @@ export default function Upload({ onClose }) {
             const { analysisId } = await startAnalysis(fileUrl);
 
             // 4️⃣ Guardar ID para consultar resultado
-            console.log("🎯 ID de análisis:", analysisId);
+            //console.log("🎯 ID de análisis:", analysisId);
 
             // Redirigir a página de resultados
             navigate(`/result/${analysisId}`);
 
         } catch (err) {
-            console.error("❌ UPLOAD FAILED");
-            console.error("Mensaje:", err.message);
+            //console.error("❌ UPLOAD FAILED");
+            //console.error("Mensaje:", err.message);
             setError(err.message || 'Error en la subida');
         } finally {
             setUploading(false);

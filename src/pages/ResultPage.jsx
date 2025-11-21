@@ -31,7 +31,7 @@ export default function ResultPage() {
             setLoading(true);
             setError(null);
 
-            console.log("🔍 Consultando resultado...", referenceId);
+            //console.log("Consultando resultado...", referenceId);
 
             const response = await getAnalysisResult(referenceId);
 
@@ -39,14 +39,14 @@ export default function ResultPage() {
                 setResult(response.result);
                 setLoading(false);
             } else {
-                console.log("⏳ Resultado no disponible aún, reintentando...");
+                //console.log("Resultado no disponible aún, reintentando...");
                 setTimeout(() => {
                     setRetryCount(prev => prev + 1);
                 }, 3000);
             }
 
         } catch (err) {
-            console.error("❌ Error obteniendo resultado:", err);
+            //console.error("Error obteniendo resultado:", err);
             setError(err.message || 'Error al obtener el resultado');
             setLoading(false);
         }

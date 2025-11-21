@@ -5,7 +5,8 @@ console.log("🌐 API URL configurada:", API_URL); // Para debug
 
 // ✅ 1. OBTENER URL PRESIGNADA
 export const getPresignedUrl = async (fileName, fileType) => {
-    console.log("📞 Pidiendo presigned URL para:", fileName, fileType);
+
+    //console.log("📞 Pidiendo presigned URL para:", fileName, fileType);
 
     const response = await fetch(`${API_URL}/upload/upload-url`, {  // ✅ Ruta correcta
         method: "POST",
@@ -21,13 +22,13 @@ export const getPresignedUrl = async (fileName, fileType) => {
     }
 
     const data = await response.json();
-    console.log("✅ Presigned URL obtenida:", data);
+    //console.log("✅ Presigned URL obtenida:", data);
     return data;
 };
 
 // ✅ 2. SUBIR ARCHIVO A S3
 export const uploadToS3 = async (uploadUrl, fields, file) => {
-    console.log("📤 Subiendo archivo a S3...");
+    //console.log("📤 Subiendo archivo a S3...");
 
     const formData = new FormData();
 
@@ -48,13 +49,13 @@ export const uploadToS3 = async (uploadUrl, fields, file) => {
         throw new Error(`Error subiendo a S3: ${response.statusText}`);
     }
 
-    console.log("✅ Archivo subido exitosamente a S3");
+    //console.log("✅ Archivo subido exitosamente a S3");
     return response;
 };
 
 // ✅ 3. INICIAR ANÁLISIS
 export const startAnalysis = async (fileUrl) => {
-    console.log("🚀 Iniciando análisis para:", fileUrl);
+    //console.log("🚀 Iniciando análisis para:", fileUrl);
 
     const response = await fetch(`${API_URL}/analysis/start`, {  // ✅ Ruta correcta
         method: "POST",
@@ -70,13 +71,13 @@ export const startAnalysis = async (fileUrl) => {
     }
 
     const data = await response.json();
-    console.log("✅ Análisis iniciado:", data);
+    //console.log("✅ Análisis iniciado:", data);
     return data;
 };
 
 // ✅ 4. OBTENER RESULTADO
 export const getAnalysisResult = async (analysisId) => {
-    console.log("📊 Obteniendo resultado para:", analysisId);
+    //console.log("📊 Obteniendo resultado para:", analysisId);
 
     const response = await fetch(`${API_URL}/analysis/result`, {  // ✅ Ruta correcta
         method: "POST",
@@ -92,13 +93,13 @@ export const getAnalysisResult = async (analysisId) => {
     }
 
     const data = await response.json();
-    console.log("✅ Resultado obtenido:", data);
+    //console.log("✅ Resultado obtenido:", data);
     return data;
 };
 
 // ✅ 5. VERIFICAR ESTADO (Opcional)
 export const checkAnalysisStatus = async (analysisId) => {
-    console.log("🔍 Verificando estado para:", analysisId);
+    //console.log("🔍 Verificando estado para:", analysisId);
 
     const response = await fetch(`${API_URL}/analysis/status/${analysisId}`, {  // ✅ GET request
         method: "GET",
@@ -113,6 +114,6 @@ export const checkAnalysisStatus = async (analysisId) => {
     }
 
     const data = await response.json();
-    console.log("✅ Estado:", data);
+    //console.log("✅ Estado:", data);
     return data;
 };
