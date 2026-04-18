@@ -1,14 +1,13 @@
-// api.js - Frontend
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
-console.log("🌐 API URL configurada:", API_URL); // Para debug
+console.log("API URL configurada:", API_URL); // Para debug
 
-// ✅ 1. OBTENER URL PRESIGNADA
+// 1. OBTENER URL PRESIGNADA
 export const getPresignedUrl = async (fileName, fileType) => {
 
-    //console.log("📞 Pidiendo presigned URL para:", fileName, fileType);
+    //console.log("Pidiendo presigned URL para:", fileName, fileType);
 
-    const response = await fetch(`${API_URL}/upload/upload-url`, {  // ✅ Ruta correcta
+    const response = await fetch(`${API_URL}/upload/upload-url`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -22,13 +21,13 @@ export const getPresignedUrl = async (fileName, fileType) => {
     }
 
     const data = await response.json();
-    //console.log("✅ Presigned URL obtenida:", data);
+    //console.log("Presigned URL obtenida:", data);
     return data;
 };
 
-// ✅ 2. SUBIR ARCHIVO A S3
+// 2. SUBIR ARCHIVO A S3
 export const uploadToS3 = async (uploadUrl, fields, file) => {
-    //console.log("📤 Subiendo archivo a S3...");
+    //console.log("Subiendo archivo a S3...");
 
     const formData = new FormData();
 
@@ -49,15 +48,15 @@ export const uploadToS3 = async (uploadUrl, fields, file) => {
         throw new Error(`Error subiendo a S3: ${response.statusText}`);
     }
 
-    //console.log("✅ Archivo subido exitosamente a S3");
+    //console.log("Archivo subido exitosamente a S3");
     return response;
 };
 
-// ✅ 3. INICIAR ANÁLISIS
+// 3. INICIAR ANÁLISIS
 export const startAnalysis = async (fileUrl) => {
     //console.log("🚀 Iniciando análisis para:", fileUrl);
 
-    const response = await fetch(`${API_URL}/analysis/start`, {  // ✅ Ruta correcta
+    const response = await fetch(`${API_URL}/analysis/start`, {  //
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -71,20 +70,20 @@ export const startAnalysis = async (fileUrl) => {
     }
 
     const data = await response.json();
-    //console.log("✅ Análisis iniciado:", data);
+    //console.log("Análisis iniciado:", data);
     return data;
 };
 
-// ✅ 4. OBTENER RESULTADO
+// 4. OBTENER RESULTADO
 export const getAnalysisResult = async (analysisId) => {
-    //console.log("📊 Obteniendo resultado para:", analysisId);
+    //console.log("Obteniendo resultado para:", analysisId);
 
-    const response = await fetch(`${API_URL}/analysis/result`, {  // ✅ Ruta correcta
+    const response = await fetch(`${API_URL}/analysis/result`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ referenceId: analysisId }),  // ✅ Backend espera 'referenceId'
+        body: JSON.stringify({ referenceId: analysisId }),
     });
 
     if (!response.ok) {
@@ -93,15 +92,15 @@ export const getAnalysisResult = async (analysisId) => {
     }
 
     const data = await response.json();
-    //console.log("✅ Resultado obtenido:", data);
+    //console.log("Resultado obtenido:", data);
     return data;
 };
 
-// ✅ 5. VERIFICAR ESTADO (Opcional)
+// 5. VERIFICAR ESTADO
 export const checkAnalysisStatus = async (analysisId) => {
-    //console.log("🔍 Verificando estado para:", analysisId);
+    //console.log("Verificando estado para:", analysisId);
 
-    const response = await fetch(`${API_URL}/analysis/status/${analysisId}`, {  // ✅ GET request
+    const response = await fetch(`${API_URL}/analysis/status/${analysisId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -114,6 +113,48 @@ export const checkAnalysisStatus = async (analysisId) => {
     }
 
     const data = await response.json();
-    //console.log("✅ Estado:", data);
+    //console.log("Estado:", data);
+    return data;
+};
+
+// ─── AUTH ─────────────────────────────────────────────────────────────────
+
+export const authRegister = async ({ name, email, password }) => {
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+    const response = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Error al registrar");
+    return data;
+};
+
+export const authLogin = async ({ email, password }) => {
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+    const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Error al iniciar sesión");
+    return data;
+};
+
+// ─── HISTORIAL ────────────────────────────────────────────────────────────
+
+export const getHistorial = async (token, page = 1) => {
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+    const response = await fetch(`${API_URL}/historial?page=${page}&limit=10`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Error obteniendo historial");
     return data;
 };
