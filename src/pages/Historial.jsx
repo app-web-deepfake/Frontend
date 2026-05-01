@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import { useAuth } from '../context/authContext.jsx';
 import { getHistorial } from '../services/api.js';
+import { IconFile, IconImage } from '../components/Icons.jsx';
 import '../styles/Historial.css';
 
 export default function Historial() {
     const navigate = useNavigate();
-    const { token, user, isAuthenticated } = useAuth();
+    const { token, isAuthenticated } = useAuth();
     const [analisis, setAnalisis] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -56,7 +57,7 @@ export default function Historial() {
 
             <div className="historial-main">
                 <div className="historial-header">
-                    <h1 className="historial-title">📋 Mi Historial</h1>
+                    <h1 className="historial-title">Mi Historial</h1>
                     <p className="historial-subtitle">
                         Aquí puedes ver todos los análisis que has realizado anteriormente.
                     </p>
@@ -71,7 +72,6 @@ export default function Historial() {
 
                 {error && (
                     <div className="historial-error">
-                        <span>⚠️</span>
                         <p>{error}</p>
                         <button className="btn-reintentar" onClick={() => cargarHistorial(pagina)}>
                             Reintentar
@@ -81,7 +81,6 @@ export default function Historial() {
 
                 {!loading && !error && analisis.length === 0 && (
                     <div className="historial-vacio">
-                        <div className="vacio-icono">🔍</div>
                         <h2>Aún no tienes análisis guardados</h2>
                         <p>Cuando analices una imagen o video, aparecerá aquí para que puedas consultarlo después.</p>
                         <button className="btn-analizar" onClick={() => navigate('/home')}>
@@ -112,7 +111,7 @@ export default function Historial() {
                                                 />
                                             ) : null}
                                             <div className="card-icono-fallback" style={{ display: item.fileUrl ? 'none' : 'flex' }}>
-                                                📷
+                                                <IconImage size={28} color="#94a3b8" />
                                             </div>
                                         </div>
 
@@ -128,7 +127,10 @@ export default function Historial() {
                                             </div>
 
                                             {item.fileName && (
-                                                <p className="card-nombre">📁 {item.fileName}</p>
+                                                <p className="card-nombre">
+                                                    <IconFile size={14} color="#64748b" />
+                                                    {item.fileName}
+                                                </p>
                                             )}
 
                                             <div className="card-detalles">

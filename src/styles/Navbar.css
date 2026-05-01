@@ -25,6 +25,9 @@
     padding: 0.5rem 1rem;
     transition: opacity 0.3s, transform 0.2s;
     border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
 .navbar-link:hover {
@@ -57,7 +60,94 @@
     object-fit: cover;
 }
 
-/* Mobile menu button */
+.navbar-accesibilidad-btn {
+    background: rgba(255,255,255,0.15) !important;
+    border: 1px solid rgba(255,255,255,0.35) !important;
+    color: white !important;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.navbar-accesibilidad-btn:hover {
+    background: rgba(255,255,255,0.28) !important;
+}
+
+/* Modo letra grande — HU0010 */
+:root.letra-grande {
+    font-size: 120%;
+}
+
+:root.letra-grande .step-text,
+:root.letra-grande .step-desc,
+:root.letra-grande .result-description p,
+:root.letra-grande .recom-card-desc,
+:root.letra-grande .privacy-text,
+:root.letra-grande .hero-subtitle,
+:root.letra-grande .section-subtitle {
+    font-size: 1.2rem;
+}
+
+:root.letra-grande .hero-title {
+    font-size: 2.8rem;
+}
+
+:root.letra-grande .section-title,
+:root.letra-grande .historial-title,
+:root.letra-grande .recom-title,
+:root.letra-grande .page-title {
+    font-size: 2.2rem;
+}
+
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.navbar-username {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.92;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.navbar-logout-btn {
+    background: rgba(255,255,255,0.15) !important;
+    border: 1px solid rgba(255,255,255,0.35) !important;
+    color: white !important;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.navbar-logout-btn:hover {
+    background: rgba(255,255,255,0.28) !important;
+    border-color: rgba(255,255,255,0.5) !important;
+}
+
+
 .navbar-menu-btn {
     display: none;
     background: none;

@@ -68,7 +68,7 @@ export default function Upload({ onClose }) {
             await uploadToS3(uploadUrl, fields, file);
 
             // 3️⃣ Iniciar análisis
-            const { analysisId } = await startAnalysis(fileUrl);
+            const { analysisId } = await startAnalysis(fileUrl, file.name);
 
             // 4️⃣ Guardar ID para consultar resultado
             //console.log("🎯 ID de análisis:", analysisId);

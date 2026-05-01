@@ -2,19 +2,49 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getAnalysisResult } from '../services/api';
+import { useAuth } from '../context/authContext.jsx';
+import { IconStar, IconExternalLink, IconImage } from '../components/Icons.jsx';
 import '../styles/Result.css';
 import Navbar from "../components/Navbar.jsx";
+
+const NOTICIAS_FAKE = [
+    {
+        tag: 'BBC MUNDO',
+        texto: 'Como reconocer cuando una imagen o video ha sido manipulado digitalmente. Senales que debes buscar antes de compartir.',
+        url: 'https://www.bbc.com/mundo/topics/cjnwl8dng9gt',
+    },
+    {
+        tag: 'EL PAIS TECNOLOGIA',
+        texto: 'Deepfakes: que son, como funcionan y por que representan un riesgo real para la sociedad.',
+        url: 'https://elpais.com/noticias/deepfakes/',
+    },
+];
+
+const NOTICIAS_REAL = [
+    {
+        tag: 'NATIONAL GEOGRAPHIC',
+        texto: 'Por que verificar el origen de las imagenes antes de compartirlas es un habito cada vez mas necesario.',
+        url: 'https://www.nationalgeographic.es/ciencia',
+    },
+    {
+        tag: 'EL PAIS TECNOLOGIA',
+        texto: 'Guia para identificar noticias falsas e imagenes manipuladas que circulan en redes sociales.',
+        url: 'https://elpais.com/noticias/desinformacion/',
+    },
+];
 
 export default function ResultPage() {
     const { referenceId } = useParams();
     const navigate = useNavigate();
+    const { user } = useAuth();
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [result, setResult] = useState(null);
     const [retryCount, setRetryCount] = useState(0);
     const [comment, setComment] = useState('');
-    const [rating, setRating] = useState(5);
+    const [rating, setRating] = useState(0);
+    const [commentSent, setCommentSent] = useState(false);
 
     useEffect(() => {
         if (!referenceId) {
@@ -22,7 +52,6 @@ export default function ResultPage() {
             setLoading(false);
             return;
         }
-
         fetchResult();
     }, [referenceId, retryCount]);
 
@@ -30,55 +59,34 @@ export default function ResultPage() {
         try {
             setLoading(true);
             setError(null);
-
-            //console.log("Consultando resultado...", referenceId);
-
             const response = await getAnalysisResult(referenceId);
-
             if (response.success && response.result) {
                 setResult(response.result);
                 setLoading(false);
             } else {
-                //console.log("Resultado no disponible aún, reintentando...");
-                setTimeout(() => {
-                    setRetryCount(prev => prev + 1);
-                }, 3000);
+                setTimeout(() => setRetryCount(prev => prev + 1), 3000);
             }
-
         } catch (err) {
-            //console.error("Error obteniendo resultado:", err);
             setError(err.message || 'Error al obtener el resultado');
             setLoading(false);
         }
     };
 
-    const handleNewAnalysis = () => {
-        navigate('/home');
-    };
+    const handleNewAnalysis = () => navigate('/home');
 
     const handleSendComment = () => {
         if (comment.trim()) {
-            alert('¡Gracias por tu comentario! Tu opinión nos ayuda a mejorar.');
-            setComment('');
-        } else {
-            alert('Por favor, escribe un comentario antes de enviar.');
-        }
-    };
-
-    const handleCancelComment = () => {
-        if (comment.trim() && window.confirm('¿Estás seguro de que quieres borrar tu comentario?')) {
-            setComment('');
-        } else if (!comment.trim()) {
+            setCommentSent(true);
             setComment('');
         }
     };
 
-    // Loading State
+    const handleCancelComment = () => setComment('');
+
     if (loading) {
         return (
             <div className="result-page">
-                <Navbar/>
-
+                <Navbar />
                 <div className="result-main">
                     <div className="loading-card">
                         <div className="spinner"></div>
@@ -91,69 +99,55 @@ export default function ResultPage() {
         );
     }
 
-    // Error State
     if (error) {
         return (
             <div className="result-page">
-                <Navbar/>
-
+                <Navbar />
                 <div className="result-main">
                     <div className="error-card">
                         <div className="error-icon">⚠️</div>
                         <h2>Hubo un problema</h2>
                         <p>{error}</p>
-                        <button className="btn-primary" onClick={handleNewAnalysis}>
-                            Intentar de nuevo
-                        </button>
+                        <button className="btn-primary" onClick={handleNewAnalysis}>Intentar de nuevo</button>
                     </div>
                 </div>
             </div>
         );
     }
 
-    if (!result) {
-        return null;
-    }
+    if (!result) return null;
 
-    // Determinar si es deepfake o no
     const isDeepfake = result.isDeepfake;
     const confidence = result.confidence;
+    const noticias = isDeepfake ? NOTICIAS_FAKE : NOTICIAS_REAL;
+    const userName = user?.name || user?.email || 'Usuario';
 
     return (
         <div className="result-page">
-            {/* Header */}
-            <Navbar/>
-
-            {/* Main Content */}
+            <Navbar />
             <div className="result-main">
-                {/* Title */}
                 <h1 className="page-title">Análisis completado</h1>
                 <p className="page-subtitle">
                     Algunos videos o imágenes pueden ser manipulados, ten cuidado.
                 </p>
 
-                {/* Image Preview */}
+                {/* Imagen analizada */}
                 <div className="image-preview-box">
                     {result.declined_proof ? (
-                        <img
-                            src={result.declined_proof}
-                            alt="Imagen analizada"
-                            className="preview-image"
-                        />
+                        <img src={result.declined_proof} alt="Imagen analizada" className="preview-image" />
                     ) : (
                         <div className="placeholder-image">
-                            <span>📷</span>
+                            <IconImage size={48} color="#cbd5e0" />
                             <p>Imagen analizada</p>
                         </div>
                     )}
                 </div>
 
-                {/* New Analysis Button */}
                 <button className="btn-eliminar" onClick={handleNewAnalysis}>
                     Nuevo análisis
                 </button>
 
-                {/* Results Section */}
+                {/* Resultados */}
                 <div className="results-box">
                     <h2 className="results-title">Resultados</h2>
 
@@ -164,12 +158,11 @@ export default function ResultPage() {
                     <div className="result-description">
                         <p>
                             {isDeepfake
-                                ? 'Nuestro sistema ha detectado señales de manipulación digital en este archivo. Es posible que haya sido alterado o creado artificialmente. Te recomendamos tener precaución al compartir este contenido y verificar su origen antes de tomarlo como verídico.'
-                                : 'Nuestro sistema no ha detectado señales evidentes de manipulación digital. El contenido parece ser auténtico. Sin embargo, siempre es importante verificar la fuente de cualquier contenido que compartas.'}
+                                ? 'Hemos encontrado indicios de que esta imagen o video pudo haber sido modificado con herramientas digitales. Antes de compartirlo, te recomendamos verificar de dónde proviene y quién lo publicó originalmente.'
+                                : 'No encontramos señales de que este contenido haya sido alterado digitalmente. Todo indica que es auténtico. De todas formas, siempre es buena idea confirmar la fuente antes de compartir cualquier imagen o video.'}
                         </p>
                     </div>
 
-                    {/* Technical Details */}
                     <details className="technical-info">
                         <summary>Ver información técnica</summary>
                         <div className="tech-details">
@@ -197,87 +190,68 @@ export default function ResultPage() {
                     </details>
                 </div>
 
-                {/* Related Sources */}
+                {/* Noticias relacionadas */}
                 <div className="sources-section">
-                    <h2 className="sources-title">Fuentes relacionadas</h2>
-
+                    <h2 className="sources-title">Artículos relacionados</h2>
                     <div className="sources-grid">
-                        {/* Source 1 */}
-                        <div className="source-card">
-                            <div className="source-image">
-                                <img
-                                    src="https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?w=300&h=200&fit=crop"
-                                    alt="BBC News"
-                                />
+                        {noticias.map((n, i) => (
+                            <div key={i} className="source-card">
+                                <div className="source-content">
+                                    <h3 className="source-tag">{n.tag}</h3>
+                                    <p className="source-text">{n.texto}</p>
+                                    <a href={n.url} target="_blank" rel="noopener noreferrer" className="source-btn">
+                                        Leer articulo <IconExternalLink size={13} color="currentColor" />
+                                    </a>
+                                </div>
                             </div>
-                            <div className="source-content">
-                                <h3 className="source-tag">BBC NEWS</h3>
-                                <p className="source-text">
-                                    Cómo identificar deepfakes y contenido manipulado en redes sociales.
-                                    Guía práctica para protegerte de la desinformación.
-                                </p>
-                                <button className="source-btn">Leer más</button>
-                            </div>
-                        </div>
-
-                        {/* Source 2 */}
-                        <div className="source-card">
-                            <div className="source-image">
-                                <img
-                                    src="https://images.unsplash.com/photo-1584931423298-c576fda54bd2?w=300&h=200&fit=crop"
-                                    alt="Verificación"
-                                />
-                            </div>
-                            <div className="source-content">
-                                <h3 className="source-tag">PANDEMIA</h3>
-                                <p className="source-text">
-                                    Los peligros de compartir información no verificada.
-                                    Aprende a verificar noticias antes de difundirlas.
-                                </p>
-                                <button className="source-btn">Leer más</button>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
 
-                {/* Comments Section */}
+                {/* Comentarios */}
                 <div className="comments-section">
-                    <h2 className="comments-title">Deja un comentario para mejorar</h2>
-
+                    <h2 className="comments-title">¿Cómo fue tu experiencia?</h2>
                     <div className="comment-card">
                         <div className="comment-header">
                             <div className="comment-user">
-                                <strong>Erick Rosas</strong>
+                                <strong>{userName}</strong>
                                 <div className="rating-stars">
                                     {[1, 2, 3, 4, 5].map(star => (
                                         <span
                                             key={star}
-                                            className={`star ${star <= rating ? 'active' : ''}`}
                                             onClick={() => setRating(star)}
+                                            style={{ cursor: 'pointer' }}
                                         >
-                                            ★
+                                            <IconStar size={22} filled={star <= rating} />
                                         </span>
                                     ))}
                                 </div>
                             </div>
                         </div>
 
-                        <textarea
-                            className="comment-textarea"
-                            placeholder="Escribe tu comentario..."
-                            value={comment}
-                            onChange={(e) => setComment(e.target.value)}
-                            rows="4"
-                        />
-
-                        <div className="comment-buttons">
-                            <button className="btn-enviar" onClick={handleSendComment}>
-                                Enviar
-                            </button>
-                            <button className="btn-cancelar" onClick={handleCancelComment}>
-                                Cancelar
-                            </button>
-                        </div>
+                        {commentSent ? (
+                            <div className="comment-sent">
+                                ¡Gracias por tu opinión, {userName.split(' ')[0]}! Nos ayuda a mejorar.
+                            </div>
+                        ) : (
+                            <>
+                                <textarea
+                                    className="comment-textarea"
+                                    placeholder="Escribe tu comentario..."
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    rows="4"
+                                />
+                                <div className="comment-buttons">
+                                    <button className="btn-enviar" onClick={handleSendComment}>
+                                        Enviar
+                                    </button>
+                                    <button className="btn-cancelar" onClick={handleCancelComment}>
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

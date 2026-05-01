@@ -53,15 +53,16 @@ export const uploadToS3 = async (uploadUrl, fields, file) => {
 };
 
 // 3. INICIAR ANÁLISIS
-export const startAnalysis = async (fileUrl) => {
-    //console.log("🚀 Iniciando análisis para:", fileUrl);
+export const startAnalysis = async (fileUrl, fileName) => {
+    const token = localStorage.getItem("auth_token");
 
-    const response = await fetch(`${API_URL}/analysis/start`, {  //
+    const response = await fetch(`${API_URL}/analysis/start`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            ...(token ? { "Authorization": `Bearer ${token}` } : {}),
         },
-        body: JSON.stringify({ fileUrl }),
+        body: JSON.stringify({ fileUrl, fileName: fileName || null }),
     });
 
     if (!response.ok) {
@@ -76,12 +77,13 @@ export const startAnalysis = async (fileUrl) => {
 
 // 4. OBTENER RESULTADO
 export const getAnalysisResult = async (analysisId) => {
-    //console.log("Obteniendo resultado para:", analysisId);
+    const token = localStorage.getItem("auth_token");
 
     const response = await fetch(`${API_URL}/analysis/result`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            ...(token ? { "Authorization": `Bearer ${token}` } : {}),
         },
         body: JSON.stringify({ referenceId: analysisId }),
     });

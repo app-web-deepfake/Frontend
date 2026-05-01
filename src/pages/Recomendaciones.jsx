@@ -55,9 +55,9 @@ const recomendaciones = [
 ];
 
 const nivelColor = {
-    básico: { bg: '#dcfce7', color: '#16a34a', label: 'Básico' },
-    intermedio: { bg: '#fef9c3', color: '#ca8a04', label: 'Intermedio' },
-    avanzado: { bg: '#fee2e2', color: '#dc2626', label: 'Avanzado' },
+    básico:     { bg: '#f0f4f8', color: '#4a6580', label: 'Básico' },
+    intermedio: { bg: '#f5f3ee', color: '#7a6940', label: 'Intermedio' },
+    avanzado:   { bg: '#f0f4f8', color: '#3d5a73', label: 'Avanzado' },
 };
 
 export default function Recomendaciones() {
