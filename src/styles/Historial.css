@@ -36,6 +36,102 @@
     margin-bottom: 1.2rem;
 }
 
+/* ===== FILTROS — HU0015 ===== */
+.historial-filtros {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+
+.filtro-grupo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filtro-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    white-space: nowrap;
+}
+
+.filtro-select {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.88rem;
+    color: #334155;
+    background: #f8fafc;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.filtro-select:focus {
+    border-color: #407FC2;
+}
+
+/* ===== SKELETON LOADING ===== */
+.skeleton-card {
+    pointer-events: none;
+    background: white !important;
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f1f5f9 25%, #e8eef4 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+    border-radius: 8px;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.skeleton-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.skeleton-badge {
+    width: 80px;
+    height: 22px;
+    border-radius: 20px;
+}
+
+.skeleton-line {
+    height: 14px;
+    width: 80%;
+}
+
+.skeleton-line.short {
+    width: 50%;
+}
+
+.skeleton-btn {
+    width: 100px;
+    height: 36px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
 /* ===== LOADING ===== */
 .historial-loading {
     display: flex;

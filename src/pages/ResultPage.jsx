@@ -1,5 +1,5 @@
 // src/pages/ResultPage.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getAnalysisResult } from '../services/api';
 import { useAuth } from '../context/authContext.jsx';
@@ -45,6 +45,58 @@ export default function ResultPage() {
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState(0);
     const [commentSent, setCommentSent] = useState(false);
+    const [pdfLoading, setPdfLoading] = useState(false);
+    const resultRef = useRef(null);
+
+    const descargarPDF = async () => {
+        setPdfLoading(true);
+        try {
+            // Carga dinámica de librerías via CDN
+            const loadScript = (src) => new Promise((resolve, reject) => {
+                if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
+                const s = document.createElement('script');
+                s.src = src;
+                s.onload = resolve;
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+
+            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+
+            const element = resultRef.current;
+            const canvas = await window.html2canvas(element, { scale: 2, useCORS: true, backgroundColor: '#f0f4f8' });
+            const imgData = canvas.toDataURL('image/png');
+
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = pageWidth - 20;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            let posY = 10;
+            if (imgHeight <= pageHeight - 20) {
+                pdf.addImage(imgData, 'PNG', 10, posY, imgWidth, imgHeight);
+            } else {
+                let remaining = imgHeight;
+                let sourceY = 0;
+                const pageContentHeight = pageHeight - 20;
+                while (remaining > 0) {
+                    pdf.addImage(imgData, 'PNG', 10, posY - sourceY * (imgWidth / canvas.width), imgWidth, imgHeight);
+                    remaining -= pageContentHeight;
+                    sourceY += (pageContentHeight * canvas.width) / imgWidth;
+                    if (remaining > 0) { pdf.addPage(); posY = 10; }
+                }
+            }
+
+            pdf.save(`resultado-analisis-${result.analysisId?.slice(0, 8) || 'deepfake'}.pdf`);
+        } catch (e) {
+            console.error('Error generando PDF:', e);
+        } finally {
+            setPdfLoading(false);
+        }
+    };
 
     useEffect(() => {
         if (!referenceId) {
@@ -125,10 +177,10 @@ export default function ResultPage() {
     return (
         <div className="result-page">
             <Navbar />
-            <div className="result-main">
-                <h1 className="page-title">Análisis completado</h1>
+            <div className="result-main" ref={resultRef}>
+                <h1 className="page-title">Analisis completado</h1>
                 <p className="page-subtitle">
-                    Algunos videos o imágenes pueden ser manipulados, ten cuidado.
+                    Algunos videos o imagenes pueden ser manipulados, ten cuidado.
                 </p>
 
                 {/* Imagen analizada */}
@@ -143,9 +195,14 @@ export default function ResultPage() {
                     )}
                 </div>
 
-                <button className="btn-eliminar" onClick={handleNewAnalysis}>
-                    Nuevo análisis
-                </button>
+                <div className="result-actions">
+                    <button className="btn-nuevo-analisis" onClick={handleNewAnalysis}>
+                        Nuevo analisis
+                    </button>
+                    <button className="btn-descargar-pdf" onClick={descargarPDF} disabled={pdfLoading}>
+                        {pdfLoading ? 'Generando PDF...' : 'Descargar PDF'}
+                    </button>
+                </div>
 
                 {/* Resultados */}
                 <div className="results-box">
