@@ -1,6 +1,5 @@
 import './App.css';
 import { Route, Routes } from "react-router-dom";
-import { useAuth } from './context/authContext.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import LoginPage from "./pages/LoginPage.jsx";
 import Register from './pages/Register';
