@@ -6,8 +6,6 @@ import { getHistorial } from '../services/api.js';
 import { IconFile, IconImage } from '../components/Icons.jsx';
 import '../styles/Historial.css';
 
-const SKELETON_COUNT = 4;
-
 function SkeletonCard() {
     return (
         <div className="historial-card skeleton-card">
@@ -30,8 +28,6 @@ export default function Historial() {
     const [error, setError] = useState(null);
     const [pagina, setPagina] = useState(1);
     const [totalPaginas, setTotalPaginas] = useState(1);
-
-    // Filtros
     const [filtroVeredicto, setFiltroVeredicto] = useState('todos');
     const [filtroFecha, setFiltroFecha] = useState('recientes');
 
@@ -68,17 +64,13 @@ export default function Historial() {
         return { label: 'Autentico', clase: 'badge-real' };
     };
 
-    // Filtrado y ordenamiento local
     const analisisFiltrado = useMemo(() => {
         let lista = [...analisis];
-
         if (filtroVeredicto === 'autentico') lista = lista.filter(i => !i.isDeepfake && i.verdict !== 'processing');
         else if (filtroVeredicto === 'falso') lista = lista.filter(i => i.isDeepfake);
         else if (filtroVeredicto === 'procesando') lista = lista.filter(i => i.verdict === 'processing');
-
         if (filtroFecha === 'recientes') lista.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        else if (filtroFecha === 'antiguos') lista.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-
+        else lista.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         return lista;
     }, [analisis, filtroVeredicto, filtroFecha]);
 
@@ -91,16 +83,12 @@ export default function Historial() {
                     <p className="historial-subtitle">Aqui puedes ver todos los analisis que has realizado.</p>
                 </div>
 
-                {/* Filtros — HU0015 */}
+                {/* Filtros */}
                 {!loading && !error && analisis.length > 0 && (
                     <div className="historial-filtros">
                         <div className="filtro-grupo">
                             <label className="filtro-label">Resultado</label>
-                            <select
-                                className="filtro-select"
-                                value={filtroVeredicto}
-                                onChange={e => setFiltroVeredicto(e.target.value)}
-                            >
+                            <select className="filtro-select" value={filtroVeredicto} onChange={e => setFiltroVeredicto(e.target.value)}>
                                 <option value="todos">Todos</option>
                                 <option value="autentico">Autentico</option>
                                 <option value="falso">Falso</option>
@@ -109,11 +97,7 @@ export default function Historial() {
                         </div>
                         <div className="filtro-grupo">
                             <label className="filtro-label">Orden</label>
-                            <select
-                                className="filtro-select"
-                                value={filtroFecha}
-                                onChange={e => setFiltroFecha(e.target.value)}
-                            >
+                            <select className="filtro-select" value={filtroFecha} onChange={e => setFiltroFecha(e.target.value)}>
                                 <option value="recientes">Mas recientes</option>
                                 <option value="antiguos">Mas antiguos</option>
                             </select>
@@ -124,10 +108,10 @@ export default function Historial() {
                     </div>
                 )}
 
-                {/* Loading skeleton */}
+                {/* Skeleton */}
                 {loading && (
                     <div className="historial-lista">
-                        {Array.from({ length: SKELETON_COUNT }).map((_, i) => <SkeletonCard key={i} />)}
+                        {Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />)}
                     </div>
                 )}
 
@@ -148,11 +132,11 @@ export default function Historial() {
                     </div>
                 )}
 
-                {/* Sin resultados con filtro activo */}
+                {/* Sin resultados con filtro */}
                 {!loading && !error && analisis.length > 0 && analisisFiltrado.length === 0 && (
                     <div className="historial-vacio">
                         <h2>Ningun analisis coincide con los filtros</h2>
-                        <p>Prueba con otras opciones de filtrado.</p>
+                        <p>Prueba con otras opciones.</p>
                         <button className="btn-analizar" onClick={() => { setFiltroVeredicto('todos'); setFiltroFecha('recientes'); }}>
                             Limpiar filtros
                         </button>
@@ -168,16 +152,22 @@ export default function Historial() {
                                 <div key={item._id || i} className="historial-card">
                                     <div className="card-icono">
                                         {item.fileUrl ? (
-                                            <img
-                                                src={item.fileUrl}
-                                                alt="Archivo analizado"
-                                                className="card-miniatura"
-                                                onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
-                                            />
-                                        ) : null}
-                                        <div className="card-icono-fallback" style={{ display: item.fileUrl ? 'none' : 'flex' }}>
-                                            <IconImage size={28} color="#94a3b8" />
-                                        </div>
+                                            <>
+                                                <img
+                                                    src={item.fileUrl}
+                                                    alt="Archivo analizado"
+                                                    className="card-miniatura"
+                                                    onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+                                                />
+                                                <div className="card-icono-fallback" style={{ display: 'none' }}>
+                                                    <IconImage size={28} color="#94a3b8" />
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="card-icono-fallback">
+                                                <IconImage size={28} color="#94a3b8" />
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div className="card-info">
@@ -201,10 +191,7 @@ export default function Historial() {
                                         </div>
                                     </div>
 
-                                    <button
-                                        className="card-btn-ver"
-                                        onClick={() => navigate(`/result/${item.faciaReferenceId}`)}
-                                    >
+                                    <button className="card-btn-ver" onClick={() => navigate(`/result/${item.faciaReferenceId}`)}>
                                         Ver resultado
                                     </button>
                                 </div>

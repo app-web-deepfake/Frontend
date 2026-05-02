@@ -1,4 +1,3 @@
-// src/pages/ResultPage.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getAnalysisResult } from '../services/api';
@@ -54,61 +53,107 @@ export default function ResultPage() {
             const loadScript = (src) => new Promise((resolve, reject) => {
                 if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
                 const s = document.createElement('script');
-                s.src = src;
-                s.onload = resolve;
-                s.onerror = reject;
+                s.src = src; s.onload = resolve; s.onerror = reject;
                 document.head.appendChild(s);
             });
 
-            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
             await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
 
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-
-            const pageW = pdf.internal.pageSize.getWidth();   // 210mm
-            const pageH = pdf.internal.pageSize.getHeight();  // 297mm
-            const margin = 12;
+            const pageW = 210;
+            const margin = 18;
             const contentW = pageW - margin * 2;
-            const contentH = pageH - margin * 2;
+            let y = margin;
 
-            const canvas = await window.html2canvas(resultRef.current, {
-                scale: 2,
-                useCORS: true,
-                backgroundColor: '#f0f4f8',
-                logging: false
+            const addText = (text, size, bold, color) => {
+                pdf.setFontSize(size);
+                pdf.setFont('helvetica', bold ? 'bold' : 'normal');
+                pdf.setTextColor(...(color || [30, 30, 30]));
+                const lines = pdf.splitTextToSize(String(text), contentW);
+                pdf.text(lines, margin, y);
+                y += lines.length * (size * 0.4) + 2;
+            };
+
+            const addLine = () => {
+                pdf.setDrawColor(220, 220, 220);
+                pdf.line(margin, y, pageW - margin, y);
+                y += 5;
+            };
+
+            const checkPage = (needed = 20) => {
+                if (y + needed > 280) { pdf.addPage(); y = margin; }
+            };
+
+            // Encabezado azul
+            pdf.setFillColor(64, 127, 194);
+            pdf.rect(0, 0, pageW, 22, 'F');
+            pdf.setFontSize(13);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setTextColor(255, 255, 255);
+            pdf.text('Deepfake Detection - Resultado de Analisis', margin, 14);
+            y = 30;
+
+            const fecha = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+            addText('Fecha: ' + fecha, 9, false, [100, 100, 100]);
+            addText('ID de referencia: ' + (result.analysisId || 'N/A'), 9, false, [100, 100, 100]);
+            y += 4;
+            addLine();
+
+            // Veredicto
+            checkPage(30);
+            const esDeepfake = result.isDeepfake;
+            pdf.setFillColor(...(esDeepfake ? [255, 235, 235] : [235, 255, 240]));
+            pdf.roundedRect(margin, y, contentW, 18, 3, 3, 'F');
+            pdf.setFontSize(12);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setTextColor(...(esDeepfake ? [220, 38, 38] : [22, 163, 74]));
+            pdf.text(esDeepfake ? 'Resultado: El contenido es FALSO' : 'Resultado: El contenido es AUTENTICO', margin + 4, y + 11);
+            y += 24;
+
+            // Explicacion
+            checkPage(25);
+            addText('Explicacion:', 10, true);
+            addText(
+                esDeepfake
+                    ? 'Se encontraron indicios de que esta imagen o video pudo haber sido modificado con herramientas digitales. Se recomienda verificar el origen antes de compartirlo.'
+                    : 'No se encontraron senales de alteracion digital. El contenido parece autentico. Se recomienda confirmar la fuente antes de compartir.',
+                10, false, [60, 60, 60]
+            );
+            y += 3;
+            addLine();
+
+            // Datos tecnicos
+            checkPage(40);
+            addText('Informacion tecnica', 11, true);
+            y += 2;
+
+            [
+                ['Estado', esDeepfake ? 'Rechazado' : 'Aprobado'],
+                ['Confianza', (result.confidence || 'N/A') + '%'],
+                ['ID', result.analysisId || 'N/A'],
+                ...(result.decline_reason ? [['Motivo', result.decline_reason]] : []),
+            ].forEach(([label, valor]) => {
+                checkPage(10);
+                pdf.setFontSize(10);
+                pdf.setFont('helvetica', 'bold'); pdf.setTextColor(60, 60, 60);
+                pdf.text(label + ':', margin, y);
+                pdf.setFont('helvetica', 'normal'); pdf.setTextColor(30, 30, 30);
+                pdf.text(String(valor), margin + 45, y);
+                y += 7;
             });
 
-            const imgW = contentW;
-            const imgH = (canvas.height * imgW) / canvas.width; // altura total en mm
+            y += 3;
+            addLine();
+            checkPage(15);
+            addText('Analizado por:', 10, true);
+            addText(user?.name || user?.email || 'Usuario', 10, false, [60, 60, 60]);
 
-            // Cuántos mm de contenido caben por página
-            const pxPerMm = canvas.width / imgW;
-            const sliceHeightPx = contentH * pxPerMm; // píxeles que caben en una página
+            pdf.setFontSize(8);
+            pdf.setTextColor(160, 160, 160);
+            pdf.text('Informe generado automaticamente por la plataforma de deteccion de deepfakes.', margin, 285);
 
-            let offsetPx = 0;
-            let pageNum = 0;
-
-            while (offsetPx < canvas.height) {
-                if (pageNum > 0) pdf.addPage();
-
-                // Crear canvas recortado para esta página
-                const sliceCanvas = document.createElement('canvas');
-                const sliceH = Math.min(sliceHeightPx, canvas.height - offsetPx);
-                sliceCanvas.width = canvas.width;
-                sliceCanvas.height = sliceH;
-                const ctx = sliceCanvas.getContext('2d');
-                ctx.drawImage(canvas, 0, offsetPx, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
-
-                const sliceData = sliceCanvas.toDataURL('image/png');
-                const sliceHeightMm = (sliceH / pxPerMm);
-                pdf.addImage(sliceData, 'PNG', margin, margin, imgW, sliceHeightMm);
-
-                offsetPx += sliceH;
-                pageNum++;
-            }
-
-            pdf.save(`resultado-${result.analysisId?.slice(0, 8) || 'deepfake'}.pdf`);
+            pdf.save('resultado-' + (result.analysisId || 'deepfake').slice(0, 10) + '.pdf');
         } catch (e) {
             console.error('Error generando PDF:', e);
         } finally {
@@ -118,7 +163,7 @@ export default function ResultPage() {
 
     useEffect(() => {
         if (!referenceId) {
-            setError('No se proporcionó un ID de referencia');
+            setError('No se proporciono un ID de referencia');
             setLoading(false);
             return;
         }
@@ -143,15 +188,7 @@ export default function ResultPage() {
     };
 
     const handleNewAnalysis = () => navigate('/home');
-
-    const handleSendComment = () => {
-        if (comment.trim()) {
-            setCommentSent(true);
-            setComment('');
-        }
-    };
-
-    const handleCancelComment = () => setComment('');
+    const handleSendComment = () => { if (comment.trim()) { setCommentSent(true); setComment(''); } };
 
     if (loading) {
         return (
@@ -161,7 +198,7 @@ export default function ResultPage() {
                     <div className="loading-card">
                         <div className="spinner"></div>
                         <h2>Analizando tu archivo...</h2>
-                        <p>Por favor espera mientras procesamos la información.</p>
+                        <p>Por favor espera mientras procesamos la informacion.</p>
                         <small>Intento {retryCount + 1}</small>
                     </div>
                 </div>
@@ -175,7 +212,6 @@ export default function ResultPage() {
                 <Navbar />
                 <div className="result-main">
                     <div className="error-card">
-                        <div className="error-icon">⚠️</div>
                         <h2>Hubo un problema</h2>
                         <p>{error}</p>
                         <button className="btn-primary" onClick={handleNewAnalysis}>Intentar de nuevo</button>
@@ -201,7 +237,6 @@ export default function ResultPage() {
                     Algunos videos o imagenes pueden ser manipulados, ten cuidado.
                 </p>
 
-                {/* Imagen analizada */}
                 <div className="image-preview-box">
                     {result.declined_proof ? (
                         <img src={result.declined_proof} alt="Imagen analizada" className="preview-image" />
@@ -222,24 +257,23 @@ export default function ResultPage() {
                     </button>
                 </div>
 
-                {/* Resultados */}
                 <div className="results-box">
                     <h2 className="results-title">Resultados</h2>
 
                     <div className={`result-status ${isDeepfake ? 'fake' : 'real'}`}>
-                        {isDeepfake ? 'El contenido es falso' : 'El contenido es auténtico'}
+                        {isDeepfake ? 'El contenido es falso' : 'El contenido es autentico'}
                     </div>
 
                     <div className="result-description">
                         <p>
                             {isDeepfake
-                                ? 'Hemos encontrado indicios de que esta imagen o video pudo haber sido modificado con herramientas digitales. Antes de compartirlo, te recomendamos verificar de dónde proviene y quién lo publicó originalmente.'
-                                : 'No encontramos señales de que este contenido haya sido alterado digitalmente. Todo indica que es auténtico. De todas formas, siempre es buena idea confirmar la fuente antes de compartir cualquier imagen o video.'}
+                                ? 'Hemos encontrado indicios de que esta imagen o video pudo haber sido modificado con herramientas digitales. Antes de compartirlo, te recomendamos verificar de donde proviene y quien lo publico originalmente.'
+                                : 'No encontramos senales de que este contenido haya sido alterado digitalmente. Todo indica que es autentico. De todas formas, siempre es buena idea confirmar la fuente antes de compartir cualquier imagen o video.'}
                         </p>
                     </div>
 
                     <details className="technical-info">
-                        <summary>Ver información técnica</summary>
+                        <summary>Ver informacion tecnica</summary>
                         <div className="tech-details">
                             <div className="tech-row">
                                 <span>Estado:</span>
@@ -265,9 +299,8 @@ export default function ResultPage() {
                     </details>
                 </div>
 
-                {/* Noticias relacionadas */}
                 <div className="sources-section">
-                    <h2 className="sources-title">Artículos relacionados</h2>
+                    <h2 className="sources-title">Articulos relacionados</h2>
                     <div className="sources-grid">
                         {noticias.map((n, i) => (
                             <div key={i} className="source-card">
@@ -286,20 +319,15 @@ export default function ResultPage() {
                     </div>
                 </div>
 
-                {/* Comentarios */}
                 <div className="comments-section">
-                    <h2 className="comments-title">¿Cómo fue tu experiencia?</h2>
+                    <h2 className="comments-title">Como fue tu experiencia?</h2>
                     <div className="comment-card">
                         <div className="comment-header">
                             <div className="comment-user">
                                 <strong>{userName}</strong>
                                 <div className="rating-stars">
                                     {[1, 2, 3, 4, 5].map(star => (
-                                        <span
-                                            key={star}
-                                            onClick={() => setRating(star)}
-                                            style={{ cursor: 'pointer' }}
-                                        >
+                                        <span key={star} onClick={() => setRating(star)} style={{ cursor: 'pointer' }}>
                                             <IconStar size={22} filled={star <= rating} />
                                         </span>
                                     ))}
@@ -309,7 +337,7 @@ export default function ResultPage() {
 
                         {commentSent ? (
                             <div className="comment-sent">
-                                ¡Gracias por tu opinión, {userName.split(' ')[0]}! Nos ayuda a mejorar.
+                                Gracias por tu opinion, {userName.split(' ')[0]}. Nos ayuda a mejorar.
                             </div>
                         ) : (
                             <>
@@ -321,12 +349,8 @@ export default function ResultPage() {
                                     rows="4"
                                 />
                                 <div className="comment-buttons">
-                                    <button className="btn-enviar" onClick={handleSendComment}>
-                                        Enviar
-                                    </button>
-                                    <button className="btn-cancelar" onClick={handleCancelComment}>
-                                        Cancelar
-                                    </button>
+                                    <button className="btn-enviar" onClick={handleSendComment}>Enviar</button>
+                                    <button className="btn-cancelar" onClick={() => setComment('')}>Cancelar</button>
                                 </div>
                             </>
                         )}

@@ -55,7 +55,6 @@ export const uploadToS3 = async (uploadUrl, fields, file) => {
 // 3. INICIAR ANÁLISIS
 export const startAnalysis = async (fileUrl, fileName) => {
     const token = localStorage.getItem("auth_token");
-
     const response = await fetch(`${API_URL}/analysis/start`, {
         method: "POST",
         headers: {
@@ -78,7 +77,6 @@ export const startAnalysis = async (fileUrl, fileName) => {
 // 4. OBTENER RESULTADO
 export const getAnalysisResult = async (analysisId) => {
     const token = localStorage.getItem("auth_token");
-
     const response = await fetch(`${API_URL}/analysis/result`, {
         method: "POST",
         headers: {
