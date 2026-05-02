@@ -51,7 +51,6 @@ export default function ResultPage() {
     const descargarPDF = async () => {
         setPdfLoading(true);
         try {
-            // Carga dinámica de librerías via CDN
             const loadScript = (src) => new Promise((resolve, reject) => {
                 if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
                 const s = document.createElement('script');
@@ -64,33 +63,52 @@ export default function ResultPage() {
             await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
             await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
 
-            const element = resultRef.current;
-            const canvas = await window.html2canvas(element, { scale: 2, useCORS: true, backgroundColor: '#f0f4f8' });
-            const imgData = canvas.toDataURL('image/png');
-
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            const imgWidth = pageWidth - 20;
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-            let posY = 10;
-            if (imgHeight <= pageHeight - 20) {
-                pdf.addImage(imgData, 'PNG', 10, posY, imgWidth, imgHeight);
-            } else {
-                let remaining = imgHeight;
-                let sourceY = 0;
-                const pageContentHeight = pageHeight - 20;
-                while (remaining > 0) {
-                    pdf.addImage(imgData, 'PNG', 10, posY - sourceY * (imgWidth / canvas.width), imgWidth, imgHeight);
-                    remaining -= pageContentHeight;
-                    sourceY += (pageContentHeight * canvas.width) / imgWidth;
-                    if (remaining > 0) { pdf.addPage(); posY = 10; }
-                }
+            const pageW = pdf.internal.pageSize.getWidth();   // 210mm
+            const pageH = pdf.internal.pageSize.getHeight();  // 297mm
+            const margin = 12;
+            const contentW = pageW - margin * 2;
+            const contentH = pageH - margin * 2;
+
+            const canvas = await window.html2canvas(resultRef.current, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#f0f4f8',
+                logging: false
+            });
+
+            const imgW = contentW;
+            const imgH = (canvas.height * imgW) / canvas.width; // altura total en mm
+
+            // Cuántos mm de contenido caben por página
+            const pxPerMm = canvas.width / imgW;
+            const sliceHeightPx = contentH * pxPerMm; // píxeles que caben en una página
+
+            let offsetPx = 0;
+            let pageNum = 0;
+
+            while (offsetPx < canvas.height) {
+                if (pageNum > 0) pdf.addPage();
+
+                // Crear canvas recortado para esta página
+                const sliceCanvas = document.createElement('canvas');
+                const sliceH = Math.min(sliceHeightPx, canvas.height - offsetPx);
+                sliceCanvas.width = canvas.width;
+                sliceCanvas.height = sliceH;
+                const ctx = sliceCanvas.getContext('2d');
+                ctx.drawImage(canvas, 0, offsetPx, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
+
+                const sliceData = sliceCanvas.toDataURL('image/png');
+                const sliceHeightMm = (sliceH / pxPerMm);
+                pdf.addImage(sliceData, 'PNG', margin, margin, imgW, sliceHeightMm);
+
+                offsetPx += sliceH;
+                pageNum++;
             }
 
-            pdf.save(`resultado-analisis-${result.analysisId?.slice(0, 8) || 'deepfake'}.pdf`);
+            pdf.save(`resultado-${result.analysisId?.slice(0, 8) || 'deepfake'}.pdf`);
         } catch (e) {
             console.error('Error generando PDF:', e);
         } finally {
@@ -256,9 +274,12 @@ export default function ResultPage() {
                                 <div className="source-content">
                                     <h3 className="source-tag">{n.tag}</h3>
                                     <p className="source-text">{n.texto}</p>
-                                    <a href={n.url} target="_blank" rel="noopener noreferrer" className="source-btn">
+                                    <button
+                                        className="source-btn"
+                                        onClick={() => window.open(n.url, '_blank', 'noopener,noreferrer')}
+                                    >
                                         Leer articulo <IconExternalLink size={13} color="currentColor" />
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         ))}
