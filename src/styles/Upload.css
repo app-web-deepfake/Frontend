@@ -1,0 +1,660 @@
+/* Modal overlay */
+.upload-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Modal container */
+.upload-modal {
+    background: white;
+    border-radius: 20px;
+    padding: 35px 40px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+
+/* Close button */
+.upload-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s;
+    line-height: 1;
+    padding: 5px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-close:hover {
+    color: #000;
+}
+
+/* Title */
+.upload-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #1a1a1a;
+    padding-right: 40px;
+}
+
+/* Dropzone */
+.upload-dropzone {
+    width: 100%;
+    min-height: 180px;
+    border: 3px dashed #407FC2;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #f0f5fa;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.upload-dropzone:hover {
+    border-color: #305f9a;
+    background: #e6eff8;
+}
+
+/* Placeholder */
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    color: #4a5568;
+}
+
+.upload-arrow {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #407FC2;
+}
+
+.upload-placeholder small {
+    font-size: 14px;
+    color: #718096;
+    margin-top: 8px;
+}
+
+/* Preview */
+.upload-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.file-name {
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+.file-size {
+    font-size: 14px;
+    color: #718096;
+}
+
+/* Privacy info section */
+.privacy-info {
+    background: #f7fafc;
+    border-left: 4px solid #407FC2;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.privacy-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+.privacy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.privacy-list li {
+    font-size: 14px;
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.privacy-list li::before {
+    content: "•";
+    position: absolute;
+    left: 5px;
+    color: #407FC2;
+    font-weight: bold;
+}
+
+.privacy-list li:last-child {
+    margin-bottom: 0;
+}
+
+.privacy-list li strong {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+/* Consent container */
+.consent-container {
+    background: #fffbf0;
+    border: 2px solid #F5A623;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.consent-label {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    gap: 12px;
+}
+
+.consent-checkbox {
+    margin-top: 3px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+    accent-color: #407FC2;
+}
+
+.consent-text {
+    font-size: 14px;
+    color: #1a1a1a;
+    line-height: 1.5;
+    user-select: none;
+}
+
+/* Error message */
+.upload-error {
+    background: #ffe5e5;
+    border-left: 4px solid #dc3545;
+    color: #cc0000;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Actions */
+.upload-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Buttons */
+.btn {
+    flex: 1;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+}
+
+.btn.secondary {
+    background: #e0e0e0;
+    color: #4a5568;
+}
+
+.btn.secondary:hover:not(:disabled) {
+    background: #d0d0d0;
+}
+
+.btn.primary {
+    background: #F5A623;
+    color: white;
+}
+
+.btn.primary:hover:not(:disabled) {
+    background: #e69500;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(245, 166, 35, 0.3);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Spinner */
+.spinner {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+    flex-grow: 0;
+    display: inline-block;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Botón en estado de carga */
+.btn.primary .spinner {
+    margin: 0 auto;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET (max 768px)
+   ======================================== */
+@media (max-width: 768px) {
+    .upload-modal-overlay {
+        padding: 16px;
+        align-items: flex-start;
+        padding-top: 5vh;
+    }
+
+    .upload-modal {
+        padding: 28px 24px;
+        max-width: 95%;
+        max-height: 92vh;
+        border-radius: 16px;
+    }
+
+    .upload-close {
+        top: 16px;
+        right: 16px;
+        font-size: 26px;
+    }
+
+    .upload-title {
+        font-size: 24px;
+        margin-bottom: 24px;
+        padding-right: 35px;
+    }
+
+    .upload-dropzone {
+        min-height: 150px;
+        border-radius: 12px;
+    }
+
+    .upload-arrow {
+        font-size: 42px;
+    }
+
+    .upload-placeholder {
+        padding: 32px 16px;
+    }
+
+    .upload-placeholder div {
+        font-size: 15px;
+    }
+
+    .privacy-info {
+        padding: 16px;
+        border-radius: 8px;
+    }
+
+    .privacy-title {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .privacy-list li {
+        font-size: 13px;
+        margin-bottom: 10px;
+        line-height: 1.5;
+    }
+
+    .consent-container {
+        padding: 14px;
+    }
+
+    .consent-checkbox {
+        width: 18px;
+        height: 18px;
+    }
+
+    .consent-text {
+        font-size: 13px;
+    }
+
+    .upload-error {
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+
+    .upload-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn {
+        padding: 14px 24px;
+        font-size: 15px;
+        width: 100%;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE (max 480px)
+   ======================================== */
+@media (max-width: 480px) {
+    .upload-modal-overlay {
+        padding: 12px;
+        padding-top: 3vh;
+    }
+
+    .upload-modal {
+        padding: 22px 18px;
+        max-width: 100%;
+        border-radius: 14px;
+        max-height: 94vh;
+    }
+
+    .upload-close {
+        top: 14px;
+        right: 14px;
+        font-size: 24px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    .upload-title {
+        font-size: 20px;
+        margin-bottom: 18px;
+        padding-right: 30px;
+        line-height: 1.3;
+    }
+
+    .upload-dropzone {
+        min-height: 130px;
+        border-width: 2px;
+        border-radius: 10px;
+        margin-bottom: 16px;
+    }
+
+    .upload-arrow {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .upload-placeholder {
+        padding: 24px 12px;
+    }
+
+    .upload-placeholder div {
+        font-size: 14px;
+    }
+
+    .upload-placeholder small {
+        font-size: 12px;
+        margin-top: 6px;
+    }
+
+    .upload-preview {
+        padding: 28px 14px;
+    }
+
+    .file-name {
+        font-size: 14px;
+    }
+
+    .file-size {
+        font-size: 12px;
+    }
+
+    .privacy-info {
+        padding: 14px 12px;
+        margin-bottom: 16px;
+        border-left-width: 3px;
+    }
+
+    .privacy-title {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .privacy-list li {
+        font-size: 12px;
+        margin-bottom: 8px;
+        padding-left: 16px;
+    }
+
+    .consent-container {
+        padding: 12px;
+        margin-bottom: 16px;
+        border-radius: 8px;
+    }
+
+    .consent-checkbox {
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+    }
+
+    .consent-text {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .upload-error {
+        font-size: 12px;
+        padding: 10px 12px;
+        margin-bottom: 16px;
+        border-radius: 6px;
+    }
+
+    .upload-actions {
+        gap: 10px;
+        margin-top: 16px;
+    }
+
+    .btn {
+        padding: 13px 20px;
+        font-size: 14px;
+        border-radius: 8px;
+        min-height: 46px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - EXTRA SMALL (max 360px)
+   ======================================== */
+@media (max-width: 360px) {
+    .upload-modal-overlay {
+        padding: 8px;
+        padding-top: 2vh;
+    }
+
+    .upload-modal {
+        padding: 18px 14px;
+        border-radius: 12px;
+    }
+
+    .upload-title {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+
+    .upload-dropzone {
+        min-height: 110px;
+    }
+
+    .upload-arrow {
+        font-size: 32px;
+    }
+
+    .upload-placeholder div {
+        font-size: 13px;
+    }
+
+    .privacy-info {
+        padding: 12px 10px;
+    }
+
+    .privacy-title {
+        font-size: 13px;
+    }
+
+    .privacy-list li {
+        font-size: 11px;
+        padding-left: 14px;
+    }
+
+    .consent-container {
+        padding: 10px;
+    }
+
+    .consent-text {
+        font-size: 11px;
+    }
+
+    .btn {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+}
+
+/* ========================================
+   LANDSCAPE MODE
+   ======================================== */
+@media (max-height: 600px) and (orientation: landscape) {
+    .upload-modal-overlay {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 10px;
+    }
+
+    .upload-modal {
+        max-height: 96vh;
+        padding: 20px 24px;
+    }
+
+    .upload-title {
+        margin-bottom: 16px;
+    }
+
+    .upload-dropzone {
+        min-height: 100px;
+        margin-bottom: 14px;
+    }
+
+    .upload-placeholder {
+        padding: 20px 12px;
+    }
+
+    .upload-arrow {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .privacy-info {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .privacy-list li {
+        margin-bottom: 6px;
+    }
+
+    .consent-container {
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+
+    .upload-actions {
+        margin-top: 14px;
+    }
+}
+
+/* ========================================
+   SCROLLBAR PERSONALIZADO
+   ======================================== */
+.upload-modal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.upload-modal::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.upload-modal::-webkit-scrollbar-thumb {
+    background: #407FC2;
+    border-radius: 10px;
+}
+
+.upload-modal::-webkit-scrollbar-thumb:hover {
+    background: #305f9a;
+}
+
+/* ========================================
+   ACCESIBILIDAD
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+    .btn,
+    .upload-dropzone,
+    .spinner {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* Focus visible para navegación por teclado */
+.upload-close:focus-visible,
+.consent-checkbox:focus-visible,
+.btn:focus-visible {
+    outline: 3px solid #407FC2;
+    outline-offset: 2px;
+}
+
+.upload-dropzone:focus-visible {
+    outline: 3px solid #407FC2;
+    outline-offset: 2px;
+}

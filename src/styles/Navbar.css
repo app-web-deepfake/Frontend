@@ -1,0 +1,285 @@
+/* src/styles/Navbar.css */
+
+.navbar {
+    background-color: #407FC2;
+    padding: 1.25rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 3rem;
+}
+
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    transition: opacity 0.3s, transform 0.2s;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.navbar-link:hover {
+    opacity: 0.9;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.navbar-link.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.navbar-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid white;
+    cursor: pointer;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+}
+
+.navbar-avatar:hover {
+    transform: scale(1.05);
+}
+
+.navbar-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.navbar-accesibilidad-btn {
+    background: rgba(255,255,255,0.15) !important;
+    border: 1px solid rgba(255,255,255,0.35) !important;
+    color: white !important;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.navbar-accesibilidad-btn:hover {
+    background: rgba(255,255,255,0.28) !important;
+}
+
+/* Modo letra grande — HU0010 */
+:root.letra-grande {
+    font-size: 120%;
+}
+
+:root.letra-grande .step-text,
+:root.letra-grande .step-desc,
+:root.letra-grande .result-description p,
+:root.letra-grande .recom-card-desc,
+:root.letra-grande .privacy-text,
+:root.letra-grande .hero-subtitle,
+:root.letra-grande .section-subtitle {
+    font-size: 1.2rem;
+}
+
+:root.letra-grande .hero-title {
+    font-size: 2.8rem;
+}
+
+:root.letra-grande .section-title,
+:root.letra-grande .historial-title,
+:root.letra-grande .recom-title,
+:root.letra-grande .page-title {
+    font-size: 2.2rem;
+}
+
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.navbar-username {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.92;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.navbar-profile-btn {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.92;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.navbar-profile-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    opacity: 1;
+}
+
+.navbar-profile-btn.active {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+
+.navbar-logout-btn {
+    background: rgba(255,255,255,0.15) !important;
+    border: 1px solid rgba(255,255,255,0.35) !important;
+    color: white !important;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.navbar-logout-btn:hover {
+    background: rgba(255,255,255,0.28) !important;
+    border-color: rgba(255,255,255,0.5) !important;
+}
+
+
+.navbar-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: opacity 0.3s;
+}
+
+.navbar-menu-btn:hover {
+    opacity: 0.8;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET (max 768px)
+   ======================================== */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 1.5rem;
+    }
+
+    .navbar-nav {
+        gap: 1.5rem;
+    }
+
+    .navbar-link {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .navbar-avatar {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE (max 600px)
+   ======================================== */
+@media (max-width: 600px) {
+    .navbar {
+        padding: 0.875rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    .navbar-menu-btn {
+        display: block;
+        order: 1;
+    }
+
+    .navbar-avatar {
+        order: 2;
+        width: 38px;
+        height: 38px;
+        border-width: 2px;
+    }
+
+    .navbar-nav {
+        display: none;
+        width: 100%;
+        order: 3;
+        flex-direction: column;
+        gap: 0;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .navbar-nav.open {
+        display: flex;
+    }
+
+    .navbar-link {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+        text-align: center;
+        border-radius: 8px;
+    }
+
+    .navbar-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: none;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - EXTRA SMALL (max 400px)
+   ======================================== */
+@media (max-width: 400px) {
+    .navbar {
+        padding: 0.75rem;
+    }
+
+    .navbar-avatar {
+        width: 35px;
+        height: 35px;
+    }
+
+    .navbar-link {
+        font-size: 0.95rem;
+        padding: 0.625rem 0.875rem;
+    }
+}

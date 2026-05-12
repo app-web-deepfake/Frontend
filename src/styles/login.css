@@ -1,0 +1,586 @@
+/* Estilos para el componente Login */
+
+.login-bg {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0a2540 0%, #ff9100 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 420px;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+    margin: auto;
+    box-sizing: border-box;
+}
+
+.login-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.login-options {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-buttons-row {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 12px;
+    width: 100%;
+}
+
+.login-btn-select {
+    background: none;
+    border: none;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 0;
+    margin-bottom: 6px;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.15s;
+    position: relative;
+}
+
+.login-btn-select.selected {
+    color: #fff;
+}
+
+.login-btn-label {
+    display: inline-block;
+    padding: 8px 16px;
+    line-height: 1;
+}
+
+.login-underline {
+    position: absolute;
+    height: 4px;
+    background: #fff;
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
+    transition: left 250ms cubic-bezier(.2, .8, .2, 1), width 250ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.login-input {
+    width: 100%;
+    max-width: 373px;
+    height: 56px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    outline: none;
+    margin-bottom: 14px;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.login-input:focus {
+    border-color: #F6A120;
+    box-shadow: 0 0 0 3px rgba(246, 161, 32, 0.2);
+}
+
+.login-input:last-of-type {
+    margin-bottom: 10px;
+}
+
+.login-forgot {
+    width: 100%;
+    max-width: 373px;
+    text-align: left;
+    margin-bottom: 16px;
+}
+
+.login-forgot span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.login-forgot span:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.login-btn-main {
+    width: 100%;
+    max-width: 373px;
+    height: 50px;
+    background: #F6A120;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(246, 161, 32, 0.3);
+    margin-bottom: 12px;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.login-btn-main:hover {
+    background: #e59315;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(246, 161, 32, 0.4);
+}
+
+.login-btn-main:active {
+    transform: translateY(0);
+}
+
+.login-btn-facebook {
+    width: 100%;
+    max-width: 373px;
+    height: 50px;
+    background: #3B5998;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.login-btn-facebook:hover {
+    background: #344e86;
+    transform: translateY(-2px);
+}
+
+.login-btn-facebook span {
+    flex: 1;
+    text-align: center;
+}
+
+.login-btn-facebook svg {
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.login-register {
+    width: 100%;
+    max-width: 373px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #fff;
+}
+
+.login-register a {
+    color: #F6A120;
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.3s;
+}
+
+.login-register a:hover {
+    opacity: 0.85;
+    text-decoration: underline;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET (max 768px)
+   ======================================== */
+@media (max-width: 768px) {
+    .login-bg {
+        padding: 16px;
+    }
+
+    .login-container {
+        padding: 32px 24px;
+        max-width: 380px;
+    }
+
+    .login-title {
+        font-size: 34px;
+        margin-bottom: 28px;
+    }
+
+    .login-buttons-row {
+        gap: 24px;
+    }
+
+    .login-btn-select {
+        font-size: 18px;
+    }
+
+    .login-btn-label {
+        padding: 6px 14px;
+    }
+
+    .login-input {
+        height: 52px;
+        font-size: 16px;
+    }
+
+    .login-btn-main,
+    .login-btn-facebook {
+        height: 48px;
+        font-size: 15px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE (max 480px)
+   ======================================== */
+@media (max-width: 480px) {
+    .login-bg {
+        padding: 12px;
+        place-content: start;
+        padding-top: 10vh;
+    }
+
+    .login-container {
+        padding: 28px 20px;
+        border-radius: 16px;
+        max-width: 100%;
+    }
+
+    .login-title {
+        font-size: 28px;
+        margin-bottom: 24px;
+    }
+
+    .login-buttons-row {
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .login-btn-select {
+        font-size: 16px;
+    }
+
+    .login-btn-label {
+        padding: 6px 12px;
+    }
+
+    .login-underline {
+        height: 3px;
+    }
+
+    .login-input {
+        height: 48px;
+        font-size: 15px;
+        padding: 0 14px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+    }
+
+    .login-forgot {
+        margin-bottom: 14px;
+    }
+
+    .login-forgot span {
+        font-size: 13px;
+    }
+
+    .login-btn-main,
+    .login-btn-facebook {
+        height: 46px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+
+    .login-btn-facebook {
+        padding: 0 16px;
+    }
+
+    .login-btn-facebook svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    .login-register {
+        font-size: 13px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - EXTRA SMALL (max 360px)
+   ======================================== */
+@media (max-width: 360px) {
+    .login-bg {
+        padding: 10px;
+        padding-top: 5vh;
+    }
+
+    .login-container {
+        padding: 24px 16px;
+    }
+
+    .login-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .login-buttons-row {
+        gap: 12px;
+    }
+
+    .login-btn-select {
+        font-size: 14px;
+    }
+
+    .login-btn-label {
+        padding: 5px 10px;
+    }
+
+    .login-input {
+        height: 44px;
+        font-size: 14px;
+    }
+
+    .login-btn-main,
+    .login-btn-facebook {
+        height: 44px;
+        font-size: 13px;
+    }
+
+    .login-btn-facebook span {
+        font-size: 12px;
+    }
+
+    .login-register {
+        font-size: 12px;
+    }
+}
+
+/* ==========================================
+   AUTH HELPERS — Forgot / Reset / Verify
+   ========================================== */
+
+.auth-icon-header {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.72);
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.55;
+    max-width: 340px;
+    width: 100%;
+}
+
+.auth-label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 6px;
+    text-align: left;
+    width: 100%;
+    max-width: 373px;
+}
+
+.auth-error {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.15);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    width: 100%;
+    max-width: 373px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+/* Full-card success / status state */
+.auth-status-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 8px 0;
+}
+
+.auth-status-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.auth-status-icon.success {
+    background: rgba(74, 222, 128, 0.12);
+    border: 2px solid rgba(74, 222, 128, 0.3);
+}
+
+.auth-status-icon.error {
+    background: rgba(248, 113, 113, 0.12);
+    border: 2px solid rgba(248, 113, 113, 0.3);
+}
+
+.auth-status-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.auth-status-title.error {
+    color: #fca5a5;
+}
+
+.auth-status-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.55;
+    margin-bottom: 24px;
+    max-width: 300px;
+}
+
+/* Password field + show/hide toggle */
+.pass-field-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 373px;
+    margin-bottom: 14px;
+}
+
+.pass-field-wrapper .login-input {
+    margin-bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: 52px;
+}
+
+.pass-toggle-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    border-radius: 6px;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.pass-toggle-btn:hover {
+    color: #F6A120;
+}
+
+/* Inline loading spinner */
+@keyframes auth-spin {
+    to { transform: rotate(360deg); }
+}
+
+.auth-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: auth-spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+
+/* Loading state — full spinner (VerifyEmail) */
+.auth-loader {
+    width: 44px;
+    height: 44px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #F6A120;
+    border-radius: 50%;
+    animation: auth-spin 0.8s linear infinite;
+    margin: 0 auto 20px;
+}
+
+/* ========================================
+   LANDSCAPE MODE
+   ======================================== */
+@media (max-height: 600px) and (orientation: landscape) {
+    .login-bg {
+        place-content: start;
+        padding-top: 20px;
+        overflow-y: auto;
+    }
+
+    .login-container {
+        padding: 24px 28px;
+    }
+
+    .login-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .login-input {
+        height: 44px;
+        margin-bottom: 10px;
+    }
+
+    .login-btn-main,
+    .login-btn-facebook {
+        height: 42px;
+        margin-bottom: 8px;
+    }
+}

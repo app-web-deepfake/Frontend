@@ -1,0 +1,485 @@
+/* ===== HISTORIAL PAGE ===== */
+.historial-page {
+    min-height: 100vh;
+    background: #f0f4f8;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.historial-main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+}
+
+/* Header */
+.historial-header {
+    margin-bottom: 2rem;
+}
+
+.historial-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a2a3a;
+    margin: 0 0 0.5rem 0;
+}
+
+.historial-subtitle {
+    color: #64748b;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Contador — va dentro del div.historial-filtros */
+.historial-contador {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+/* ===== FILTROS — HU0015 ===== */
+.historial-filtros {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+
+.filtro-grupo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filtro-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    white-space: nowrap;
+}
+
+.filtro-select {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.88rem;
+    color: #334155;
+    background: #f8fafc;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.filtro-select:focus {
+    border-color: #407FC2;
+}
+
+/* ===== SKELETON LOADING ===== */
+.skeleton-card {
+    pointer-events: none;
+    background: white !important;
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f1f5f9 25%, #e8eef4 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+    border-radius: 8px;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.skeleton-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.skeleton-badge {
+    width: 80px;
+    height: 22px;
+    border-radius: 20px;
+}
+
+.skeleton-line {
+    height: 14px;
+    width: 80%;
+}
+
+.skeleton-line.short {
+    width: 50%;
+}
+
+.skeleton-btn {
+    width: 100px;
+    height: 36px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+/* ===== LOADING ===== */
+.historial-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 4rem 0;
+    color: #64748b;
+}
+
+.spinner-grande {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #e2e8f0;
+    border-top-color: #407FC2;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== ERROR ===== */
+.historial-error {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    color: #be123c;
+}
+
+.historial-error span {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.btn-reintentar {
+    margin-top: 1rem;
+    background: #be123c;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn-reintentar:hover {
+    background: #9f1239;
+}
+
+/* ===== VACÍO ===== */
+.historial-vacio {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.vacio-icono {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.historial-vacio h2 {
+    color: #1e293b;
+    font-size: 1.4rem;
+    margin: 0 0 0.75rem 0;
+}
+
+.historial-vacio p {
+    color: #64748b;
+    max-width: 400px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
+}
+
+.btn-analizar {
+    background: #407FC2;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.75rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.btn-analizar:hover {
+    background: #2f6aaa;
+    transform: translateY(-2px);
+}
+
+/* ===== LISTA DE CARDS ===== */
+.historial-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.historial-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.historial-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* Ícono/miniatura */
+.card-icono {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f1f5f9;
+}
+
+.card-miniatura {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-icono-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+}
+
+/* Info */
+.card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.4rem;
+}
+
+/* Badges */
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-fake {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.badge-real {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.badge-processing {
+    background: #fef9c3;
+    color: #ca8a04;
+}
+
+.card-fecha {
+    font-size: 0.82rem;
+    color: #94a3b8;
+}
+
+.card-nombre {
+    font-size: 0.9rem;
+    color: #475569;
+    margin: 0 0 0.4rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.card-detalles {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.detalle-chip {
+    background: #f1f5f9;
+    border-radius: 6px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.detalle-chip code {
+    font-family: monospace;
+    color: #407FC2;
+}
+
+/* Botón ver resultado */
+.card-btn-ver {
+    background: transparent;
+    border: 2px solid #407FC2;
+    color: #407FC2;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+.card-btn-ver:hover {
+    background: #407FC2;
+    color: white;
+}
+
+/* ===== PAGINACIÓN ===== */
+.historial-paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.btn-pagina {
+    background: white;
+    border: 2px solid #e2e8f0;
+    color: #407FC2;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-pagina:hover:not(:disabled) {
+    border-color: #407FC2;
+    background: #eff6ff;
+}
+
+.btn-pagina:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pagina-info {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* Botón borrar individual */
+.card-btn-delete {
+    background: none;
+    border: 1px solid #fca5a5;
+    color: #ef4444;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    margin-left: 8px;
+}
+
+.card-btn-delete:hover:not(:disabled) {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #dc2626;
+}
+
+.card-btn-delete:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-delete-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fca5a5;
+    border-top-color: #ef4444;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+/* Botón borrar todo */
+.btn-borrar-todo {
+    margin-left: auto;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+}
+
+.btn-borrar-todo:hover {
+    background: #dc2626;
+}
+
+
+@media (max-width: 600px) {
+    .historial-card {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    .card-btn-ver {
+        width: 100%;
+        text-align: center;
+    }
+    .historial-title {
+        font-size: 1.5rem;
+    }
+}

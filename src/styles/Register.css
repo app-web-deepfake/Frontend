@@ -1,0 +1,339 @@
+/* Estilos para el componente Register */
+
+.register-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0a2540 0%, #ff9100 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    margin: auto;
+    box-sizing: border-box;
+}
+
+.register-container h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.register-container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.register-container input {
+    width: 100%;
+    max-width: 373px;
+    height: 56px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    outline: none;
+    transition: box-shadow 0.3s;
+}
+
+.register-container input:focus {
+    box-shadow: 0 0 0 3px rgba(246, 161, 32, 0.3);
+}
+
+.register-container input::placeholder {
+    color: #888;
+}
+
+.create-account-btn,
+.facebook-btn {
+    width: 100%;
+    max-width: 373px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.create-account-btn {
+    background: #F6A120;
+    color: white;
+    box-shadow: 0 4px 12px rgba(246, 161, 32, 0.3);
+    margin-top: 8px;
+}
+
+.create-account-btn:hover {
+    background: #e59315;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(246, 161, 32, 0.4);
+}
+
+.create-account-btn:active {
+    transform: translateY(0);
+}
+
+.facebook-btn {
+    background: #3B5998;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.facebook-btn:hover {
+    background: #344e86;
+    transform: translateY(-2px);
+}
+
+.facebook-btn:active {
+    transform: translateY(0);
+}
+
+.facebook-btn i {
+    font-size: 18px;
+}
+
+.login-link {
+    margin-top: 24px;
+    color: white;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #F6A120;
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.3s;
+}
+
+.login-link a:hover {
+    opacity: 0.85;
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #ff6b6b;
+    font-size: 14px;
+    margin: 8px 0;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    background: rgba(255, 107, 107, 0.15);
+    padding: 10px 16px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 373px;
+}
+
+.success-message {
+    color: #4CAF50;
+    font-size: 14px;
+    margin: 8px 0;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    background: rgba(76, 175, 80, 0.15);
+    padding: 10px 16px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 373px;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET (max 768px)
+   ======================================== */
+@media (max-width: 768px) {
+    .register-page {
+        padding: 16px;
+    }
+
+    .register-container {
+        padding: 32px 24px;
+        max-width: 380px;
+    }
+
+    .register-container h1 {
+        font-size: 32px;
+        margin-bottom: 28px;
+    }
+
+    .register-container form {
+        gap: 14px;
+    }
+
+    .register-container input {
+        height: 52px;
+        font-size: 16px;
+    }
+
+    .create-account-btn,
+    .facebook-btn {
+        height: 48px;
+        font-size: 15px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE (max 480px)
+   ======================================== */
+@media (max-width: 480px) {
+    .register-page {
+        padding: 12px;
+        place-items: start;
+        padding-top: 8vh;
+    }
+
+    .register-container {
+        padding: 28px 20px;
+        border-radius: 16px;
+        max-width: 100%;
+    }
+
+    .register-container h1 {
+        font-size: 26px;
+        margin-bottom: 24px;
+    }
+
+    .register-container form {
+        gap: 12px;
+    }
+
+    .register-container input {
+        height: 48px;
+        font-size: 15px;
+        padding: 0 14px;
+        border-radius: 8px;
+    }
+
+    .create-account-btn,
+    .facebook-btn {
+        height: 46px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+
+    .facebook-btn {
+        gap: 8px;
+    }
+
+    .facebook-btn i {
+        font-size: 16px;
+    }
+
+    .login-link {
+        margin-top: 20px;
+        font-size: 13px;
+    }
+
+    .error-message,
+    .success-message {
+        font-size: 13px;
+        padding: 8px 14px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - EXTRA SMALL (max 360px)
+   ======================================== */
+@media (max-width: 360px) {
+    .register-page {
+        padding: 10px;
+        padding-top: 5vh;
+    }
+
+    .register-container {
+        padding: 24px 16px;
+    }
+
+    .register-container h1 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .register-container form {
+        gap: 10px;
+    }
+
+    .register-container input {
+        height: 44px;
+        font-size: 14px;
+    }
+
+    .create-account-btn,
+    .facebook-btn {
+        height: 44px;
+        font-size: 13px;
+    }
+
+    .login-link {
+        font-size: 12px;
+    }
+}
+
+/* ========================================
+   LANDSCAPE MODE
+   ======================================== */
+@media (max-height: 600px) and (orientation: landscape) {
+    .register-page {
+        place-items: start;
+        padding-top: 20px;
+        overflow-y: auto;
+    }
+
+    .register-container {
+        padding: 24px 28px;
+    }
+
+    .register-container h1 {
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+
+    .register-container form {
+        gap: 10px;
+    }
+
+    .register-container input {
+        height: 44px;
+    }
+
+    .create-account-btn,
+    .facebook-btn {
+        height: 42px;
+    }
+
+    .login-link {
+        margin-top: 16px;
+    }
+}
