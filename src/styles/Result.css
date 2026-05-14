@@ -863,3 +863,105 @@
         margin-bottom: 1rem;
     }
 }
+/* ========== MÉTRICAS (Trust Score, Riesgo, Confianza) ========== */
+.metrics-row {
+    display: flex;
+    gap: 12px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+}
+
+.metric-card {
+    flex: 1;
+    min-width: 100px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.metric-label {
+    font-size: 11px;
+    color: #6b7280;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.metric-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: center;
+}
+
+/* ========== RECOMENDACIONES ========== */
+.recommendations-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+}
+
+.recommendations-title {
+    font-size: 14px;
+    color: #374151;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.recommendations-list {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.recommendations-list li {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+/* ========== ALERTA REINCIDENCIA ========== */
+.recidivism-alert {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #dc2626;
+    line-height: 1.5;
+}
+
+/* ========== RESPONSIVE métricas ========== */
+@media (max-width: 480px) {
+    .metrics-row {
+        gap: 8px;
+    }
+
+    .metric-card {
+        padding: 10px 12px;
+        min-width: 80px;
+    }
+
+    .metric-label {
+        font-size: 10px;
+    }
+
+    .metric-value {
+        font-size: 14px;
+    }
+
+    .recommendations-list li {
+        font-size: 13px;
+    }
+}
