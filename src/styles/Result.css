@@ -965,3 +965,401 @@
         font-size: 13px;
     }
 }
+/* ========================================
+   AGREGAR AL FINAL DE Result.css
+   ======================================== */
+
+/* ── Veredicto incierto ── */
+.result-status.inconclusive {
+    background: #fffbeb;
+    color: #92400e;
+    border: 1.5px solid #fde68a;
+}
+
+/* ── Banner zona gris / inconclusivo ── */
+.inconclusive-banner {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+}
+
+.inconclusive-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.inconclusive-banner strong {
+    font-size: 14px;
+    color: #92400e;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.inconclusive-banner p {
+    font-size: 13px;
+    color: #78350f;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ── Métricas ── */
+.metrics-row {
+    display: flex;
+    gap: 12px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+}
+
+.metric-card {
+    flex: 1;
+    min-width: 100px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.metric-label {
+    font-size: 11px;
+    color: #6b7280;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.metric-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: center;
+}
+
+/* ── Recomendaciones ── */
+.recommendations-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+}
+
+.recommendations-title {
+    font-size: 14px;
+    color: #374151;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.recommendations-list {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.recommendations-list li {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+/* ── Alerta reincidencia ── */
+.recidivism-alert {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #dc2626;
+    line-height: 1.5;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .metrics-row { gap: 8px; }
+    .metric-card { padding: 10px 12px; min-width: 80px; }
+    .metric-label { font-size: 10px; }
+    .metric-value { font-size: 14px; }
+    .inconclusive-banner { flex-direction: column; gap: 8px; }
+}
+
+/* ── Feedback section ── */
+.feedback-section {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.feedback-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 14px 0;
+    text-align: center;
+}
+
+/* Botones iniciales Correcto / Incorrecto */
+.feedback-buttons-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.feedback-btn {
+    flex: 1;
+    max-width: 160px;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+.feedback-btn:hover { opacity: 0.85; }
+
+.feedback-btn-correct {
+    background: #dcfce7;
+    color: #16a34a;
+    border: 1.5px solid #bbf7d0;
+}
+
+.feedback-btn-incorrect {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1.5px solid #fecaca;
+}
+
+/* Formulario de reporte */
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.feedback-question {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 8px 0;
+}
+
+.feedback-verdict-group {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+.feedback-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.feedback-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #4b5563;
+    cursor: pointer;
+}
+
+.feedback-radio-label input[type="radio"] {
+    accent-color: #3b82f6;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.feedback-textarea {
+    width: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #374151;
+    resize: vertical;
+    font-family: inherit;
+    box-sizing: border-box;
+    background: #fff;
+}
+.feedback-textarea:focus {
+    outline: none;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.3);
+}
+
+.feedback-char-count {
+    font-size: 11px;
+    color: #9ca3af;
+    text-align: right;
+    margin-top: -8px;
+}
+
+.feedback-error {
+    font-size: 13px;
+    color: #dc2626;
+    margin: 0;
+}
+
+.feedback-form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.feedback-btn-cancel {
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #6b7280;
+    cursor: pointer;
+}
+.feedback-btn-cancel:hover { background: #f1f5f9; }
+
+.feedback-btn-send {
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.feedback-btn-send:hover { background: #2563eb; }
+.feedback-btn-send:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Estado done */
+.feedback-done {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.feedback-done-icon {
+    font-size: 20px;
+    color: #16a34a;
+    font-weight: 700;
+}
+
+.feedback-done p {
+    font-size: 14px;
+    color: #374151;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .feedback-buttons-row { flex-direction: column; align-items: center; }
+    .feedback-btn { max-width: 100%; }
+    .feedback-form-actions { flex-direction: column-reverse; }
+    .feedback-btn-cancel, .feedback-btn-send { width: 100%; text-align: center; }
+}
+
+/* ── ManipulationBar ── */
+.manipulation-bar-box {
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 16px 0;
+}
+
+.manipulation-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.manipulation-bar-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.manipulation-bar-pct {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+/* Track de la barra */
+.manipulation-bar-track {
+    position: relative;
+    height: 16px;
+    background: #e2e8f0;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.manipulation-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    min-width: 4px;
+}
+
+/* Marcadores verticales */
+.manipulation-bar-markers {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+}
+.manipulation-bar-markers span {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: rgba(255,255,255,0.6);
+}
+
+/* Leyenda de zonas */
+.manipulation-bar-zones {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.manipulation-bar-zones span {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* Descripción */
+.manipulation-bar-desc {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .manipulation-bar-pct { font-size: 22px; }
+    .manipulation-bar-title { font-size: 14px; }
+    .manipulation-bar-desc { font-size: 13px; }
+    .manipulation-bar-zones span { font-size: 9px; }
+}

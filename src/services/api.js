@@ -255,3 +255,16 @@ export const deleteAllAnalysis = async () => {
     if (!response.ok) throw new Error(data.error || "Error eliminando historial");
     return data;
 };
+// feedback
+export const submitAnalysisFeedback = async (referenceId, { userAgreement, userVerdict, userComment }) => {
+    const response = await handleResponse(
+        await fetch(`${API_URL}/analysis/${referenceId}/feedback`, {
+            method: "POST",
+            headers: authHeaders(),
+            body: JSON.stringify({ userAgreement, userVerdict, userComment }),
+        })
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Error enviando feedback");
+    return data;
+};
