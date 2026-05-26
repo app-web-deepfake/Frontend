@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Home.css';
 import Upload from "../components/Upload.jsx";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.jsx";
 import { useAuth } from "../context/authContext.jsx";
 import { IconUpload } from "../components/Icons.jsx";
