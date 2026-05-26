@@ -290,24 +290,9 @@ export default function ResultPage() {
     if (!result) return null;
 
     // ─── Derivados del resultado ──────────────────────────────────────────────
-    // Fallback defensivo: si MongoDB no guardó riskLevel/manipulationIndex
-    // (schema incompleto o registro antiguo), los reconstruimos desde trustScore.
-    const safeRiskLevel = result.riskLevel || (() => {
-        const s = result.manipulationIndex ?? (result.trustScore != null ? 100 - result.trustScore : null);
-        if (s == null) return null;
-        if (s <= 30) return 'LOW';
-        if (s <= 45) return 'MEDIUM';
-        if (s <= 65) return 'SUSPICIOUS';
-        if (s <= 80) return 'HIGH';
-        return 'CRITICAL';
-    })();
-    const safeManipulationIndex = result.manipulationIndex
-        ?? (result.trustScore != null ? 100 - result.trustScore : null)
-        ?? 0;
-
     const isDeepfake    = result.isDeepfake;
-    const isSuspicious  = result.isSuspicious || safeRiskLevel === 'SUSPICIOUS';
-    const riskCfg       = RISK_CONFIG[safeRiskLevel] || null;
+    const isSuspicious  = result.isSuspicious || result.riskLevel === 'SUSPICIOUS';
+    const riskCfg       = RISK_CONFIG[result.riskLevel] || null;
     const imageUrl      = getImageUrl(result, location.state);
 
     // Noticias según veredicto
@@ -359,56 +344,36 @@ export default function ResultPage() {
                         {result.interpretedLabel || (isDeepfake ? 'El contenido es falso' : 'El contenido es auténtico')}
                     </div>
 
-                    {/* Banner SUSPICIOUS — zona gris de ZeroTrue */}
-                    {isSuspicious && (
-                        <div className="suspicious-banner">
-                            <span className="suspicious-icon">🔎</span>
-                            <div>
-                                <strong>Resultado no concluyente</strong>
-                                <p>
-                                    {result.explanation ||
-                                        'El análisis muestra indicios ambiguos. Puede deberse a compresión de ' +
-                                        'plataformas como WhatsApp o TikTok, filtros, o ediciones menores. ' +
-                                        'No es suficiente para confirmar un deepfake — verifica la fuente del contenido.'}
-                                </p>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Banner zona gris / inconclusivo (no SUSPICIOUS) */}
-                    {!isSuspicious && (result.isInconclusive || result.isGreyZone) && (
-                        <div className="inconclusive-banner">
-                            <span className="inconclusive-icon">⚠️</span>
-                            <div>
-                                <strong>Resultado con incertidumbre</strong>
-                                <p>
-                                    {result.invalidCase?.reason ||
-                                        'El resultado está en zona de incertidumbre. ' +
-                                        'Puede deberse a compresión de redes sociales, rostros parciales ' +
-                                        'o capturas de pantalla. Verifica el origen del contenido antes de sacar conclusiones.'}
-                                </p>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Barra de manipulación */}
-                    {safeRiskLevel && (
+                    {/* Barra de manipulación — incluye descripción del nivel */}
+                    {result.riskLevel && (
                         <ManipulationBar
-                            manipulationIndex={safeManipulationIndex}
-                            riskLevel={safeRiskLevel}
+                            manipulationIndex={result.manipulationIndex ?? 0}
+                            riskLevel={result.riskLevel}
                             isInconclusive={result.isInconclusive || isSuspicious}
                             forceMax={result.analysisCategory === 'evasion'
-                                && (safeRiskLevel === 'HIGH' || safeRiskLevel === 'CRITICAL')}
+                                && (result.riskLevel === 'HIGH' || result.riskLevel === 'CRITICAL')}
                         />
                     )}
 
-                    {/* Explicación */}
-                    <div className="result-description">
-                        <p>{result.explanation || (isDeepfake
-                            ? 'Hemos encontrado indicios de que este contenido pudo haber sido modificado digitalmente.'
-                            : 'No encontramos señales de que este contenido haya sido alterado digitalmente.')}
-                        </p>
-                    </div>
+                    {/* Explicación — solo para invalidCase o greyZone sin barra */}
+                    {(result.invalidCase || (result.isGreyZone && !result.riskLevel)) && (
+                        <div className="result-description">
+                            <p>{result.explanation ||
+                                result.invalidCase?.reason ||
+                                'No fue posible determinar con certeza el nivel de manipulación.'}
+                            </p>
+                        </div>
+                    )}
+
+                    {/* Explicación normal cuando hay riskLevel */}
+                    {result.riskLevel && (
+                        <div className="result-description">
+                            <p>{result.explanation || (isDeepfake
+                                ? 'Hemos encontrado indicios de que este contenido pudo haber sido modificado digitalmente.'
+                                : 'No encontramos señales de que este contenido haya sido alterado digitalmente.')}
+                            </p>
+                        </div>
+                    )}
 
                     {/* Recomendaciones */}
                     {result.recommendations?.length > 0 && (
@@ -430,8 +395,8 @@ export default function ResultPage() {
                         <summary>Ver información técnica</summary>
                         <div className="tech-details">
                             <div className="tech-row"><span>Estado:</span><strong className={isDeepfake ? 'text-danger' : 'text-success'}>{isDeepfake ? 'Rechazado' : 'Aprobado'}</strong></div>
-                            {safeRiskLevel && <div className="tech-row"><span>Nivel de riesgo:</span><strong style={{ color: riskCfg?.color }}>{riskCfg?.label} ({safeRiskLevel})</strong></div>}
-                            <div className="tech-row"><span>Índice de manipulación:</span><strong>{safeManipulationIndex}%</strong></div>
+                            {result.riskLevel && <div className="tech-row"><span>Nivel de riesgo:</span><strong style={{ color: riskCfg?.color }}>{riskCfg?.label} ({result.riskLevel})</strong></div>}
+                            {result.manipulationIndex != null && <div className="tech-row"><span>Índice de manipulación:</span><strong>{result.manipulationIndex}%</strong></div>}
                             {result.trustScore != null && <div className="tech-row"><span>Trust Score:</span><strong>{result.trustScore} / 100</strong></div>}
                             <div className="tech-row"><span>Resultado incierto:</span><strong>{result.isInconclusive ? 'Sí' : 'No'}</strong></div>
                             <div className="tech-row"><span>Resultado sospechoso:</span><strong>{isSuspicious ? 'Sí' : 'No'}</strong></div>
