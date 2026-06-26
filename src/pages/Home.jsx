@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import '../styles/Home.css';
 import Upload from "../components/Upload.jsx";
 import Navbar from "../components/Navbar.jsx";
+import Footer from "../components/Footer.jsx";
+import StreakBadge from "../components/StreakBadge.jsx";
+import Leaderboard from "../components/Leaderboard.jsx";
 import { useAuth } from "../context/authContext.jsx";
 import { IconUpload } from "../components/Icons.jsx";
 
@@ -42,6 +45,12 @@ const Home = () => {
                     <IconUpload size={20} color="white" />
                     Sube una imagen o video
                 </button>
+
+                {/* Racha y Ranking */}
+                <div className="home-gamification-row">
+                    <StreakBadge />
+                    <Leaderboard />
+                </div>
             </section>
 
             {/* Pasos */}
@@ -115,6 +124,7 @@ const Home = () => {
             </section>
 
             {showUpload && <Upload onClose={() => setShowUpload(false)} />}
+            <Footer />
         </div>
     );
 };

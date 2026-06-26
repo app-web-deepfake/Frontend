@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import { sendSuggestion } from '../services/api.js';
 import '../styles/Recomendaciones.css';
+import Footer from '../components/Footer.jsx';
 
 const recomendaciones = [
     {
@@ -341,6 +342,7 @@ export default function Recomendaciones() {
                 </div>
 
             </div>
+            <Footer />
         </div>
     );
 }

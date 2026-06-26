@@ -5,6 +5,7 @@ import { useAuth } from '../context/authContext.jsx';
 import { IconStar, IconExternalLink, IconImage } from '../components/Icons.jsx';
 import '../styles/Result.css';
 import Navbar from '../components/Navbar.jsx';
+import Footer from '../components/Footer.jsx';
 import FeedbackSection from '../components/FeedbackSection.jsx';
 import ManipulationBar from '../components/ManipulationBar.jsx';
 
@@ -470,6 +471,7 @@ export default function ResultPage() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

@@ -268,3 +268,28 @@ export const submitAnalysisFeedback = async (referenceId, { userAgreement, userV
     if (!response.ok) throw new Error(data.error || "Error enviando feedback");
     return data;
 };
+// ─── RACHA / GAMIFICACIÓN ──────────────────────────────────────────────────
+
+export const getStreak = async () => {
+    const response = await handleResponse(
+        await fetch(`${API_URL}/streak`, {
+            method: "GET",
+            headers: authHeaders(),
+        })
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Error obteniendo racha");
+    return data;
+};
+
+export const getLeaderboard = async () => {
+    const response = await handleResponse(
+        await fetch(`${API_URL}/streak/leaderboard`, {
+            method: "GET",
+            headers: authHeaders(),
+        })
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Error obteniendo ranking");
+    return data;
+};

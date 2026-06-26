@@ -5,6 +5,7 @@ import { useAuth } from '../context/authContext.jsx';
 import { getHistorial, deleteAnalysis, deleteAllAnalysis } from '../services/api.js';
 import { IconFile, IconImage, IconTrash } from '../components/Icons.jsx';
 import '../styles/Historial.css';
+import Footer from '../components/Footer.jsx';
 
 function SkeletonCard() {
     return (
@@ -254,6 +255,7 @@ export default function Historial() {
                     </div>
                 )}
             </div>
+            <Footer />
         </div>
     );
 }

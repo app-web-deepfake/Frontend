@@ -1,0 +1,150 @@
+/* Leaderboard.css */
+
+.leaderboard-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.leaderboard-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.leaderboard-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #374151;
+    flex: 1;
+}
+
+.leaderboard-subtitle {
+    font-size: 0.72rem;
+    color: #9ca3af;
+}
+
+/* List */
+.leaderboard-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lb-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: #f9fafb;
+    transition: background 0.15s;
+}
+
+.lb-row.top-three {
+    background: #fffbeb;
+}
+
+.lb-row.is-me {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+}
+
+.lb-rank {
+    width: 22px;
+    text-align: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.lb-rank-num {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #9ca3af;
+}
+
+.lb-name {
+    flex: 1;
+    font-size: 0.87rem;
+    font-weight: 500;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lb-you-tag {
+    font-size: 0.65rem;
+    background: #3b82f6;
+    color: white;
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.lb-streak {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+}
+
+.lb-streak strong {
+    font-size: 0.9rem;
+    color: #ea580c;
+}
+
+.lb-streak-label {
+    font-size: 0.7rem;
+    color: #9ca3af;
+}
+
+/* Hint */
+.leaderboard-hint {
+    font-size: 0.72rem;
+    color: #9ca3af;
+    margin: 0.9rem 0 0;
+    text-align: center;
+}
+
+/* Empty & skeleton */
+.leaderboard-empty {
+    font-size: 0.82rem;
+    color: #6b7280;
+    text-align: center;
+    padding: 1rem 0 0.5rem;
+}
+
+.leaderboard-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lb-skeleton-row {
+    height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: lb-shimmer 1.4s infinite;
+}
+
+@keyframes lb-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Letra grande */
+.letra-grande .leaderboard-title { font-size: 1.05rem; }
+.letra-grande .lb-name           { font-size: 0.95rem; }

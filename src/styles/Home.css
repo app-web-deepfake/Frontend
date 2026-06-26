@@ -724,3 +724,25 @@ body {
         transform: none;
     }
 }
+/* ─── Gamificación: racha + ranking ─────────────────────── */
+.home-gamification-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+}
+
+.home-gamification-row > * {
+    flex: 1 1 300px;
+    min-width: 260px;
+}
+
+@media (max-width: 600px) {
+    .home-gamification-row {
+        flex-direction: column;
+    }
+}
