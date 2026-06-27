@@ -60,16 +60,22 @@ export default function Historial() {
         });
     };
 
+    const esNoConcluyente = (item) =>
+        !item.isDeepfake && item.verdict !== 'processing' &&
+        (item.isInconclusive || item.isSuspicious || item.isGreyZone);
+
     const getVeredictoBadge = (item) => {
         if (item.verdict === 'processing') return { label: 'Procesando', clase: 'badge-processing' };
         if (item.isDeepfake) return { label: 'Falso', clase: 'badge-fake' };
+        if (esNoConcluyente(item)) return { label: 'No concluyente', clase: 'badge-suspicious' };
         return { label: 'Autentico', clase: 'badge-real' };
     };
 
     const analisisFiltrado = useMemo(() => {
         let lista = [...analisis];
-        if (filtroVeredicto === 'autentico') lista = lista.filter(i => !i.isDeepfake && i.verdict !== 'processing');
+        if (filtroVeredicto === 'autentico') lista = lista.filter(i => !i.isDeepfake && i.verdict !== 'processing' && !esNoConcluyente(i));
         else if (filtroVeredicto === 'falso') lista = lista.filter(i => i.isDeepfake);
+        else if (filtroVeredicto === 'noconcluyente') lista = lista.filter(i => esNoConcluyente(i));
         else if (filtroVeredicto === 'procesando') lista = lista.filter(i => i.verdict === 'processing');
         if (filtroFecha === 'recientes') lista.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         else lista.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
@@ -118,6 +124,7 @@ export default function Historial() {
                             <select className="filtro-select" value={filtroVeredicto} onChange={e => setFiltroVeredicto(e.target.value)}>
                                 <option value="todos">Todos</option>
                                 <option value="autentico">Autentico</option>
+                                <option value="noconcluyente">No concluyente</option>
                                 <option value="falso">Falso</option>
                                 <option value="procesando">Procesando</option>
                             </select>

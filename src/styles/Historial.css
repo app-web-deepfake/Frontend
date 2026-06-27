@@ -319,6 +319,11 @@
     color: #ca8a04;
 }
 
+.badge-suspicious {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
 .card-fecha {
     font-size: 0.82rem;
     color: #94a3b8;
