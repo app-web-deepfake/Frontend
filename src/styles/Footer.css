@@ -1,0 +1,94 @@
+/* Footer.css */
+
+.app-footer {
+    background-color: #0f172a;
+    color: #94a3b8;
+    padding: 2rem 2rem 1.4rem;
+    margin-top: auto;
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* Marca */
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-logo {
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.footer-brand-name {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #f1f5f9;
+    letter-spacing: 0.01em;
+}
+
+/* Tagline */
+.footer-tagline {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Links */
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.2rem 1.2rem;
+    margin-top: 0.4rem;
+}
+
+.footer-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color 0.2s;
+}
+
+.footer-link:hover {
+    color: #f1f5f9;
+}
+
+/* Bottom */
+.footer-bottom {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid #1e293b;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.footer-copy {
+    font-size: 0.75rem;
+    color: #475569;
+    margin: 0;
+}
+
+.footer-disclaimer {
+    font-size: 0.7rem;
+    color: #334155;
+    margin: 0;
+    text-align: center;
+}
+
+/* Letra grande */
+.letra-grande .footer-link        { font-size: 0.92rem; }
+.letra-grande .footer-copy        { font-size: 0.85rem; }
+.letra-grande .footer-disclaimer  { font-size: 0.78rem; }

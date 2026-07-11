@@ -1,0 +1,184 @@
+/* ========================================
+   AGREGAR AL FINAL DE Result.css
+   ======================================== */
+
+/* ── Feedback section ── */
+.feedback-section {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.feedback-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 14px 0;
+    text-align: center;
+}
+
+/* Botones iniciales Correcto / Incorrecto */
+.feedback-buttons-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.feedback-btn {
+    flex: 1;
+    max-width: 160px;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+.feedback-btn:hover { opacity: 0.85; }
+
+.feedback-btn-correct {
+    background: #dcfce7;
+    color: #16a34a;
+    border: 1.5px solid #bbf7d0;
+}
+
+.feedback-btn-incorrect {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1.5px solid #fecaca;
+}
+
+/* Formulario de reporte */
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.feedback-question {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 8px 0;
+}
+
+.feedback-verdict-group {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+.feedback-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.feedback-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #4b5563;
+    cursor: pointer;
+}
+
+.feedback-radio-label input[type="radio"] {
+    accent-color: #3b82f6;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.feedback-textarea {
+    width: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #374151;
+    resize: vertical;
+    font-family: inherit;
+    box-sizing: border-box;
+    background: #fff;
+}
+.feedback-textarea:focus {
+    outline: none;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.3);
+}
+
+.feedback-char-count {
+    font-size: 11px;
+    color: #9ca3af;
+    text-align: right;
+    margin-top: -8px;
+}
+
+.feedback-error {
+    font-size: 13px;
+    color: #dc2626;
+    margin: 0;
+}
+
+.feedback-form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.feedback-btn-cancel {
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #6b7280;
+    cursor: pointer;
+}
+.feedback-btn-cancel:hover { background: #f1f5f9; }
+
+.feedback-btn-send {
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.feedback-btn-send:hover { background: #2563eb; }
+.feedback-btn-send:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Estado done */
+.feedback-done {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.feedback-done-icon {
+    font-size: 20px;
+    color: #16a34a;
+    font-weight: 700;
+}
+
+.feedback-done p {
+    font-size: 14px;
+    color: #374151;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .feedback-buttons-row { flex-direction: column; align-items: center; }
+    .feedback-btn { max-width: 100%; }
+    .feedback-form-actions { flex-direction: column-reverse; }
+    .feedback-btn-cancel, .feedback-btn-send { width: 100%; text-align: center; }
+}

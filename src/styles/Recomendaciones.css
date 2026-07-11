@@ -1,272 +1,501 @@
-/* ===== RECOMENDACIONES PAGE ===== */
+/* ─── Recomendaciones.css ───────────────────────────────────────────────────── */
+
 .recom-page {
     min-height: 100vh;
-    background: #f0f4f8;
-    font-family: 'Montserrat', sans-serif;
+    background: #f8f9fb;
 }
 
 .recom-main {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 2.5rem 1.5rem 4rem;
 }
 
-/* Header */
+/* ─── Header ─────────────────────────────────────────────────────────────────── */
 .recom-header {
-    margin-bottom: 1.5rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.recom-badge {
+    display: inline-block;
+    background: #e8f0fe;
+    color: #3b5bdb;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
 }
 
 .recom-title {
-    font-size: 2rem;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
     font-weight: 700;
-    color: #1a2a3a;
-    margin: 0 0 0.5rem 0;
+    color: #1a1a2e;
+    margin: 0 0 0.75rem;
+    line-height: 1.2;
 }
 
 .recom-subtitle {
-    color: #64748b;
     font-size: 1rem;
-    line-height: 1.6;
-    max-width: 680px;
-    margin: 0;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
 }
 
-/* Leyenda */
-.recom-leyenda {
+/* Stats rápidos */
+.recom-stats {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    border: 1px solid #e8eaf0;
+    border-radius: 999px;
+    padding: 0.5rem 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.stat-item {
     display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
 }
 
-.leyenda-chip {
-    padding: 0.3rem 0.9rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
+.stat-num {
+    font-size: 1.1rem;
     font-weight: 700;
+    color: #1a1a2e;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: #888;
+    text-transform: uppercase;
     letter-spacing: 0.04em;
 }
 
-/* Grid de cards */
-.recom-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem;
-    margin-bottom: 3rem;
+.stat-divider {
+    width: 1px;
+    height: 28px;
+    background: #e8eaf0;
 }
 
-.recom-card {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-    padding: 1.5rem;
+/* ─── Controles ──────────────────────────────────────────────────────────────── */
+.recom-controles {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    transition: transform 0.18s, box-shadow 0.18s;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
-.recom-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-}
-
-.recom-card-top {
+.recom-search-wrap {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 
-.recom-icono {
-    font-size: 2rem;
-    line-height: 1;
-}
-
-.recom-nivel {
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.recom-card-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin: 0;
-    line-height: 1.4;
-}
-
-.recom-card-desc {
-    font-size: 0.88rem;
-    color: #64748b;
-    line-height: 1.65;
-    margin: 0;
-}
-
-/* CTA */
-.recom-cta {
-    display: flex;
-    justify-content: center;
-}
-
-.cta-box {
-    background: linear-gradient(135deg, #407FC2 0%, #2f6aaa 100%);
-    color: white;
-    border-radius: 20px;
-    padding: 2.5rem 3rem;
-    text-align: center;
-    max-width: 500px;
-    width: 100%;
-    box-shadow: 0 8px 32px rgba(64, 127, 194, 0.3);
-}
-
-.cta-box h2 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin: 0 0 0.5rem 0;
-}
-
-.cta-box p {
+.search-icon {
+    position: absolute;
+    left: 0.9rem;
     font-size: 0.95rem;
-    opacity: 0.9;
-    margin: 0 0 1.5rem 0;
+    pointer-events: none;
 }
 
-.cta-btn {
-    background: white;
-    color: #407FC2;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-}
-
-.cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-    .recom-title {
-        font-size: 1.5rem;
-    }
-    .recom-grid {
-        grid-template-columns: 1fr;
-    }
-    .cta-box {
-        padding: 2rem 1.5rem;
-    }
-    .contact-box {
-        padding: 2rem 1.5rem;
-    }
-}
-
-/* ===== CONTACT / SUGGESTION FORM ===== */
-.recom-contact {
-    display: flex;
-    justify-content: center;
-    margin-top: 2.5rem;
-}
-
-.contact-box {
-    background: white;
-    border-radius: 20px;
-    padding: 2.5rem 3rem;
-    max-width: 560px;
+.recom-search {
     width: 100%;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-}
-
-.contact-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #1a2a3a;
-    margin: 0 0 0.4rem 0;
-}
-
-.contact-subtitle {
-    font-size: 0.92rem;
-    color: #64748b;
-    margin: 0 0 1.25rem 0;
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.contact-textarea {
-    width: 100%;
-    padding: 0.85rem 1rem;
-    border: 1.5px solid #e2e8f0;
+    padding: 0.65rem 2.5rem 0.65rem 2.4rem;
+    border: 1.5px solid #e0e3eb;
     border-radius: 10px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    color: #1e293b;
-    background: #f8fafc;
-    resize: vertical;
+    font-size: 0.95rem;
+    background: white;
+    color: #1a1a2e;
     transition: border-color 0.2s;
     box-sizing: border-box;
 }
 
-.contact-textarea:focus {
+.recom-search:focus {
     outline: none;
-    border-color: #407FC2;
-    background: white;
+    border-color: #3b5bdb;
+    box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.1);
 }
 
-.contact-textarea:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+.search-clear {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0.2rem;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.search-clear:hover { color: #333; }
+
+.recom-filtros {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filtro-btn {
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    border: 1.5px solid #e0e3eb;
+    background: white;
+    color: #555;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+}
+
+.filtro-btn:hover {
+    border-color: #aaa;
+    color: #222;
+}
+
+.filtro-activo {
+    background: #1a1a2e;
+    border-color: #1a1a2e;
+    color: white;
+}
+
+.filtro-básico.filtro-activo   { background: #2a6049; border-color: #2a6049; }
+.filtro-intermedio.filtro-activo { background: #7a6130; border-color: #7a6130; }
+.filtro-avanzado.filtro-activo  { background: #3b5bdb; border-color: #3b5bdb; }
+
+/* ─── Contador ───────────────────────────────────────────────────────────────── */
+.recom-contador {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0 0 1rem;
+}
+
+/* ─── Grid de tarjetas ───────────────────────────────────────────────────────── */
+.recom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.recom-card {
+    background: white;
+    border: 1.5px solid #e8eaf0;
+    border-radius: 14px;
+    padding: 1.1rem 1.2rem;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    user-select: none;
+}
+
+.recom-card:hover {
+    border-color: #c5cae9;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+}
+
+.recom-card--open {
+    border-color: #3b5bdb;
+    box-shadow: 0 4px 20px rgba(59, 91, 219, 0.1);
+}
+
+.card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.card-icono {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.card-tag {
+    font-size: 0.7rem;
+    color: #888;
+    letter-spacing: 0.02em;
+}
+
+.card-chevron {
+    font-size: 1.3rem;
+    color: #bbb;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: -2px;
+}
+
+.card-chevron--up {
+    transform: rotate(90deg);
+    color: #3b5bdb;
+}
+
+/* Niveles */
+.recom-nivel {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 999px;
+}
+
+.nivel-basico {
+    background: #e6f4ee;
+    color: #2a6049;
+}
+
+.nivel-intermedio {
+    background: #fef3e2;
+    color: #7a6130;
+}
+
+.nivel-avanzado {
+    background: #e8f0fe;
+    color: #3b5bdb;
+}
+
+.recom-card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 0.1rem;
+    line-height: 1.4;
+}
+
+/* Descripción expandible */
+.recom-card-desc-wrap {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+    opacity: 0;
+}
+
+.recom-card-desc-wrap--open {
+    max-height: 300px;
+    opacity: 1;
+}
+
+.recom-card-desc {
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.65;
+    margin: 0.6rem 0 0;
+    padding-top: 0.6rem;
+    border-top: 1px solid #f0f0f5;
+}
+
+/* Estado vacío */
+.recom-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #888;
+}
+
+.empty-icon { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
+
+.empty-reset {
+    margin-top: 1rem;
+    padding: 0.5rem 1.2rem;
+    background: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.empty-reset:hover { opacity: 0.85; }
+
+/* ─── Leyenda ─────────────────────────────────────────────────────────────────── */
+.recom-leyenda {
+    background: white;
+    border: 1.5px solid #e8eaf0;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.leyenda-titulo {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #888;
+    margin: 0 0 0.85rem;
+}
+
+.leyenda-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.leyenda-desc {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+/* ─── CTA ─────────────────────────────────────────────────────────────────────── */
+.recom-cta {
+    margin-bottom: 2rem;
+}
+
+.cta-box {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.cta-icon { font-size: 2rem; flex-shrink: 0; }
+
+.cta-text { flex: 1; min-width: 180px; }
+
+.cta-box h2 {
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+}
+
+.cta-box p {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.88rem;
+    margin: 0;
+}
+
+.cta-btn {
+    background: white;
+    color: #1a1a2e;
+    border: none;
+    border-radius: 10px;
+    padding: 0.65rem 1.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.15s;
+    flex-shrink: 0;
+}
+
+.cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ─── Contacto ────────────────────────────────────────────────────────────────── */
+.recom-contact { margin-bottom: 1rem; }
+
+.contact-box {
+    background: white;
+    border: 1.5px solid #e8eaf0;
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+}
+
+.contact-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 0.4rem;
+}
+
+.contact-subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0 0 1.25rem;
+}
+
+.contact-form { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.contact-textarea {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #e0e3eb;
+    border-radius: 10px;
+    font-size: 0.93rem;
+    font-family: inherit;
+    resize: vertical;
+    color: #1a1a2e;
+    transition: border-color 0.2s;
+}
+
+.contact-textarea:focus {
+    outline: none;
+    border-color: #3b5bdb;
+    box-shadow: 0 0 0 3px rgba(59,91,219,0.1);
 }
 
 .contact-error {
-    font-size: 0.82rem;
-    color: #dc2626;
+    font-size: 0.83rem;
+    color: #e03;
     margin: 0;
 }
 
 .contact-submit-btn {
-    background: #407FC2;
+    align-self: flex-end;
+    padding: 0.6rem 1.4rem;
+    background: #1a1a2e;
     color: white;
     border: none;
-    padding: 0.75rem 2rem;
     border-radius: 10px;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
     cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    align-self: flex-start;
+    transition: opacity 0.2s;
 }
 
-.contact-submit-btn:hover:not(:disabled) {
-    background: #2f6aaa;
-    transform: translateY(-1px);
-}
-
-.contact-submit-btn:disabled {
-    opacity: 0.65;
-    cursor: not-allowed;
-}
+.contact-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.contact-submit-btn:hover:not(:disabled) { opacity: 0.85; }
 
 .contact-success {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 1rem 1.25rem;
     background: #f0fdf4;
-    border: 1.5px solid #86efac;
+    border: 1px solid #bbf7d0;
     border-radius: 10px;
-    color: #166534;
-    font-weight: 600;
-    font-size: 0.92rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    color: #15803d;
+    font-weight: 500;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .recom-main { padding: 1.5rem 1rem 3rem; }
+    .recom-grid { grid-template-columns: 1fr; }
+    .recom-stats { gap: 0.6rem; padding: 0.5rem 1rem; }
+    .cta-box { flex-direction: column; text-align: center; }
+    .cta-btn { width: 100%; }
+    .contact-box { padding: 1.25rem; }
+    .recom-filtros { gap: 0.4rem; }
+    .filtro-btn { font-size: 0.78rem; padding: 0.35rem 0.8rem; }
 }

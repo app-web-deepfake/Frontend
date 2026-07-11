@@ -5,6 +5,7 @@ import { useAuth } from '../context/authContext.jsx';
 import { updateProfile, getMe, resendVerification } from '../services/api.js';
 import { IconShield, IconCheck, IconAlert } from '../components/Icons.jsx';
 import '../styles/Profile.css';
+import Footer from '../components/Footer.jsx';
 
 const getInitials = (name = '', email = '') => {
     if (name) {
@@ -183,6 +184,7 @@ export default function Profile() {
                 </div>
 
             </div>
+            <Footer />
         </div>
     );
 }

@@ -24,7 +24,32 @@ export default function LoginPage() {
         }
     }, []);
 
-    // Already logged in → go home
+    // ✅ useLayoutEffect ANTES del early return
+    useLayoutEffect(() => {
+        let rafId = null;
+        function updateIndicator() {
+            const index = role === "usuario" ? 0 : 1;
+            const el = btnRefs.current[index];
+            if (!el) { rafId = window.requestAnimationFrame(updateIndicator); return; }
+            const parent = el.parentElement;
+            const labelEl = labelRefs.current[index] || el;
+            if (parent) {
+                const parentRect = parent.getBoundingClientRect();
+                const elRect = (labelEl && labelEl.getBoundingClientRect()) || el.getBoundingClientRect();
+                setIndicatorStyle({ left: elRect.left - parentRect.left, width: elRect.width });
+            } else {
+                setIndicatorStyle({ left: el.offsetLeft, width: el.offsetWidth });
+            }
+        }
+        updateIndicator();
+        window.addEventListener("resize", updateIndicator);
+        return () => {
+            window.removeEventListener("resize", updateIndicator);
+            if (rafId) window.cancelAnimationFrame(rafId);
+        };
+    }, [role]);
+
+    // ✅ Early return DESPUÉS de todos los hooks
     if (!loading && isAuthenticated) {
         return <Navigate to="/home" replace />;
     }
@@ -57,27 +82,6 @@ export default function LoginPage() {
         { label: "Admin", value: "admin" },
     ];
 
-    useLayoutEffect(() => {
-        let rafId = null;
-        function updateIndicator() {
-            const index = role === "usuario" ? 0 : 1;
-            const el = btnRefs.current[index];
-            if (!el) { rafId = window.requestAnimationFrame(updateIndicator); return; }
-            const parent = el.parentElement;
-            const labelEl = labelRefs.current[index] || el;
-            if (parent) {
-                const parentRect = parent.getBoundingClientRect();
-                const elRect = (labelEl && labelEl.getBoundingClientRect()) || el.getBoundingClientRect();
-                setIndicatorStyle({ left: elRect.left - parentRect.left, width: elRect.width });
-            } else {
-                setIndicatorStyle({ left: el.offsetLeft, width: el.offsetWidth });
-            }
-        }
-        updateIndicator();
-        window.addEventListener("resize", updateIndicator);
-        return () => { window.removeEventListener("resize", updateIndicator); if (rafId) window.cancelAnimationFrame(rafId); };
-    }, [role]);
-
     return (
         <div className="login-bg">
             <div className="login-container">
@@ -104,9 +108,9 @@ export default function LoginPage() {
                                 onClick={() => setRole(btn.value)}
                                 className={`login-btn-select${role === btn.value ? " selected" : ""}`}
                             >
-                <span ref={(el) => (labelRefs.current[i] = el)} className="login-btn-label">
-                  {btn.label}
-                </span>
+                                <span ref={(el) => (labelRefs.current[i] = el)} className="login-btn-label">
+                                    {btn.label}
+                                </span>
                             </button>
                         ))}
                         <div

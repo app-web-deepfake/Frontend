@@ -12,8 +12,15 @@ export function AuthProvider({ children }) {
         const savedUser = localStorage.getItem("auth_user");
         if (savedToken && savedUser) {
             try {
-                setToken(savedToken);
-                setUser(JSON.parse(savedUser));
+                const parsed = JSON.parse(savedUser);
+                // Si el id es objeto (ObjectId viejo), limpiar sesión
+                if (parsed?.id && typeof parsed.id === "object") {
+                    localStorage.removeItem("auth_token");
+                    localStorage.removeItem("auth_user");
+                } else {
+                    setToken(savedToken);
+                    setUser(parsed);
+                }
             } catch {
                 localStorage.removeItem("auth_token");
                 localStorage.removeItem("auth_user");

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext.jsx';
 import { IconMenu, IconClose, IconUser, IconLogout, IconHome, IconHistory, IconShield, IconTextSize } from './Icons.jsx';
+import StreakBadge from './StreakBadge.jsx';
 import '../styles/Navbar.css';
 
 export default function Navbar() {
@@ -61,6 +62,7 @@ export default function Navbar() {
                     <IconTextSize size={15} color="white" />
                     {letraGrande ? 'A-' : 'A+'}
                 </button>
+                {user && <StreakBadge compact />}
                 {user && (
                     <Link
                         to="/profile"
