@@ -1,167 +1,74 @@
 /* StreakBadge.css */
 
-/* ── Compact (Navbar) ──────────────────────────────────────── */
 .streak-badge-compact {
     display: inline-flex;
     align-items: center;
     gap: 3px;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255,255,255,0.13);
     border-radius: 20px;
     padding: 3px 10px;
     cursor: default;
-    position: relative;
 }
 
-.streak-number {
-    font-size: 0.8rem;
-    font-weight: 700;
-    line-height: 1;
-}
-
+.streak-number { font-size: 0.78rem; font-weight: 700; line-height: 1; }
 .streak-number.active { color: #fdba74; }
 .streak-number.zero   { color: #d1d5db; }
 
-/* ── Card (Home) ───────────────────────────────────────────── */
+/* Card */
 .streak-card {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
     border-radius: 12px;
     padding: 1.2rem 1.4rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    position: relative;
-    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
-.streak-card-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 1rem;
-}
+.streak-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
 
-.streak-card-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #374151;
-}
+.streak-card-title { font-size: 0.93rem; font-weight: 600; color: var(--color-text); }
 
-/* Stats row */
-.streak-stats {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.9rem;
-}
+.streak-stats { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.85rem; }
 
-.streak-stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    flex: 1;
-}
+.streak-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; }
 
-.streak-stat.main .streak-stat-value {
-    font-size: 2rem;
-    color: #f97316;
-}
+.streak-stat.main .streak-stat-value { font-size: 2rem; color: #f97316; }
 
-.streak-stat-value {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #1f2937;
-    line-height: 1;
-}
-
+.streak-stat-value { font-size: 1.1rem; font-weight: 700; color: var(--color-text); line-height: 1; }
+.streak-stat-value.fire { color: #f97316; }
 .streak-stat-value.small { font-size: 1rem; }
 
-.streak-stat-label {
-    font-size: 0.7rem;
-    color: #6b7280;
-    text-align: center;
-}
+.streak-stat-label { font-size: 0.68rem; color: var(--color-text-soft); text-align: center; }
 
-.streak-divider {
-    width: 1px;
-    height: 36px;
-    background: #e5e7eb;
-    flex-shrink: 0;
-}
+.streak-divider { width: 1px; height: 34px; background: var(--color-border); flex-shrink: 0; }
 
-/* Milestone badge */
 .streak-milestone-badge {
     display: inline-block;
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    background: #fef3c7;
     color: #92400e;
-    font-size: 0.75rem;
+    font-size: 0.73rem;
     font-weight: 600;
     border-radius: 20px;
     padding: 3px 10px;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.65rem;
     border: 1px solid #fcd34d;
 }
 
-/* Check-in message */
-.streak-checkin-msg {
-    font-size: 0.78rem;
-    margin: 0 0 0.9rem;
-}
-
-.streak-checkin-msg.ok      { color: #16a34a; }
+.streak-checkin-msg { font-size: 0.77rem; margin: 0 0 0.85rem; }
+.streak-checkin-msg.ok      { color: var(--color-success); }
 .streak-checkin-msg.pending { color: #d97706; }
 
-/* Progress milestones */
-.streak-progress {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-}
+.streak-progress { display: flex; gap: 5px; align-items: center; }
 
 .streak-milestone {
     flex: 1;
     text-align: center;
-    font-size: 0.65rem;
+    font-size: 0.63rem;
     font-weight: 600;
     color: #9ca3af;
-    background: #f3f4f6;
+    background: var(--color-bg);
     border-radius: 4px;
     padding: 3px 2px;
     transition: background 0.3s, color 0.3s;
 }
 
-.streak-milestone.reached {
-    background: #ffedd5;
-    color: #c2410c;
-}
-
-/* ── Toast notification ─────────────────────────────────────── */
-.streak-toast {
-    position: fixed;
-    bottom: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9999;
-    background: #1f2937;
-    color: white;
-    padding: 0.65rem 1.2rem;
-    border-radius: 24px;
-    font-size: 0.88rem;
-    font-weight: 500;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.22);
-    animation: streak-slide-up 0.3s ease;
-    white-space: nowrap;
-}
-
-.streak-toast.milestone {
-    background: linear-gradient(135deg, #f97316, #dc2626);
-}
-
-@keyframes streak-slide-up {
-    from { opacity: 0; transform: translateX(-50%) translateY(12px); }
-    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-/* Letra grande */
-.letra-grande .streak-card-title  { font-size: 1.05rem; }
-.letra-grande .streak-stat-label  { font-size: 0.8rem; }
-.letra-grande .streak-checkin-msg { font-size: 0.88rem; }
+.streak-milestone.reached { background: #ffedd5; color: #c2410c; }

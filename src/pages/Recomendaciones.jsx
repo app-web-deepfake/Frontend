@@ -1,25 +1,23 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
+import Footer from '../components/Footer.jsx';
 import { sendSuggestion } from '../services/api.js';
 import '../styles/Recomendaciones.css';
-import Footer from '../components/Footer.jsx';
 
 const recomendaciones = [
     {
         titulo: 'Verifica la fuente del contenido',
         descripcion:
             'Antes de compartir una imagen o video, investiga de dónde proviene. Los deepfakes suelen circular en redes sociales sin atribución clara. Busca la fuente original usando búsqueda inversa de imágenes en Google o TinEye.',
-        nivel: 'básico',
-        icono: '🔍',
+        nivel: 'basico',
         tag: 'Verificación',
     },
     {
         titulo: 'Observa los detalles del rostro',
         descripcion:
             'Los deepfakes frecuentemente fallan en áreas como los bordes del cabello, las orejas, los dientes o los ojos. Busca bordes difuminados, parpadeos extraños o inconsistencias en la iluminación del rostro.',
-        nivel: 'básico',
-        icono: '👁️',
+        nivel: 'basico',
         tag: 'Detección visual',
     },
     {
@@ -27,15 +25,13 @@ const recomendaciones = [
         descripcion:
             'En videos manipulados, el movimiento de los labios no siempre coincide perfectamente con el audio. Presta atención a si las palabras suenan natural con los gestos faciales.',
         nivel: 'intermedio',
-        icono: '🎙️',
         tag: 'Video',
     },
     {
-        titulo: 'Revisa la iluminación y sombras',
+        titulo: 'Revisa la iluminación y las sombras',
         descripcion:
-            'Las sombras y reflejos en los ojos o piel deben ser consistentes en todo el video. Una fuente de luz que "salta" o sombras inconsistentes son señales claras de manipulación digital.',
+            'Las sombras y reflejos en los ojos o la piel deben ser consistentes en todo el video. Una fuente de luz que cambia abruptamente o sombras inconsistentes son señales claras de manipulación digital.',
         nivel: 'intermedio',
-        icono: '💡',
         tag: 'Detección visual',
     },
     {
@@ -43,15 +39,13 @@ const recomendaciones = [
         descripcion:
             'Apóyate en herramientas especializadas para analizar contenido sospechoso. Los algoritmos de detección pueden identificar patrones de manipulación que el ojo humano no percibe fácilmente.',
         nivel: 'avanzado',
-        icono: '🛠️',
         tag: 'Herramientas',
     },
     {
         titulo: 'No compartas sin verificar',
         descripcion:
             'Si tienes dudas sobre la autenticidad de un contenido, es mejor no compartirlo. Difundir deepfakes puede causar daño real a personas, reputaciones e instituciones.',
-        nivel: 'básico',
-        icono: '🚫',
+        nivel: 'basico',
         tag: 'Hábitos',
     },
     {
@@ -59,7 +53,6 @@ const recomendaciones = [
         descripcion:
             'Los deepfakes suelen usarse para generar contenido emotivo o escandaloso que provoque reacciones inmediatas. Si algo te parece demasiado impactante, tómate un momento antes de reaccionar o compartir.',
         nivel: 'intermedio',
-        icono: '🧠',
         tag: 'Conciencia',
     },
     {
@@ -67,23 +60,20 @@ const recomendaciones = [
         descripcion:
             'Limita la cantidad de fotos y videos de alta resolución que publicas en redes sociales. Cualquier imagen pública puede ser usada para entrenar modelos que generen contenido falso con tu rostro.',
         nivel: 'avanzado',
-        icono: '🔒',
         tag: 'Privacidad',
     },
     {
-        titulo: 'Verifica metadatos del archivo',
+        titulo: 'Verifica los metadatos del archivo',
         descripcion:
-            'Las imágenes originales contienen metadatos EXIF con información de cámara, fecha y ubicación. Los deepfakes suelen tener estos datos eliminados o inconsistentes. Puedes verificarlos con herramientas gratuitas en línea.',
+            'Las imágenes originales contienen metadatos EXIF con información de la cámara, fecha y ubicación. Los deepfakes suelen tener estos datos eliminados o inconsistentes. Puedes verificarlos con herramientas gratuitas en línea.',
         nivel: 'avanzado',
-        icono: '📋',
         tag: 'Herramientas',
     },
     {
         titulo: 'Desconfía de videos virales sin contexto',
         descripcion:
-            'Si un video se vuelve viral muy rápido y muestra a una figura pública en una situación escandalosa, es señal de alerta. Busca cobertura del mismo evento en medios de comunicación reconocidos antes de creerlo.',
-        nivel: 'básico',
-        icono: '📢',
+            'Si un video se vuelve viral muy rápido y muestra a una figura pública en una situación escandalosa, es una señal de alerta. Busca cobertura del mismo evento en medios de comunicación reconocidos antes de creerlo.',
+        nivel: 'basico',
         tag: 'Conciencia',
     },
     {
@@ -91,44 +81,42 @@ const recomendaciones = [
         descripcion:
             'La piel generada por IA tiende a verse demasiado suave o con patrones repetitivos. En imágenes reales, la piel tiene poros, imperfecciones y variaciones naturales de color que los modelos de IA aún no replican perfectamente.',
         nivel: 'intermedio',
-        icono: '🔬',
         tag: 'Detección visual',
     },
     {
-        titulo: 'Habla con tus seres queridos',
+        titulo: 'Comparte estos conocimientos',
         descripcion:
-            'Comparte estos conocimientos con familiares y amigos, especialmente con personas mayores que pueden ser más vulnerables a la desinformación. La educación colectiva es la mejor defensa contra los deepfakes.',
-        nivel: 'básico',
-        icono: '❤️',
+            'Difunde estos consejos entre familiares y amigos, especialmente con personas mayores que pueden ser más vulnerables a la desinformación. La educación colectiva es la mejor defensa contra los deepfakes.',
+        nivel: 'basico',
         tag: 'Comunidad',
     },
 ];
 
-const NIVELES = ['todos', 'básico', 'intermedio', 'avanzado'];
+const NIVELES = ['todos', 'basico', 'intermedio', 'avanzado'];
 
 const nivelConfig = {
-    básico:     { label: 'Básico',      className: 'nivel-basico' },
+    basico:     { label: 'Básico',      className: 'nivel-basico' },
     intermedio: { label: 'Intermedio',  className: 'nivel-intermedio' },
     avanzado:   { label: 'Avanzado',    className: 'nivel-avanzado' },
 };
 
 export default function Recomendaciones() {
     const navigate = useNavigate();
-    const [filtroNivel, setFiltroNivel]   = useState('todos');
-    const [busqueda, setBusqueda]         = useState('');
-    const [suggestion, setSuggestion]     = useState('');
-    const [suggStatus, setSuggStatus]     = useState(null);
-    const [suggError, setSuggError]       = useState('');
-    const [expandida, setExpandida]       = useState(null);
+    const [filtroNivel, setFiltroNivel] = useState('todos');
+    const [busqueda, setBusqueda]       = useState('');
+    const [suggestion, setSuggestion]   = useState('');
+    const [suggStatus, setSuggStatus]   = useState(null);
+    const [suggError, setSuggError]     = useState('');
+    const [expandida, setExpandida]     = useState(null);
 
     const recomsFiltradas = useMemo(() => {
         return recomendaciones.filter(r => {
-            const coincideNivel  = filtroNivel === 'todos' || r.nivel === filtroNivel;
-            const textoBusqueda  = busqueda.toLowerCase();
-            const coincideBusq   = !busqueda ||
-                r.titulo.toLowerCase().includes(textoBusqueda) ||
-                r.descripcion.toLowerCase().includes(textoBusqueda) ||
-                r.tag.toLowerCase().includes(textoBusqueda);
+            const coincideNivel = filtroNivel === 'todos' || r.nivel === filtroNivel;
+            const texto = busqueda.toLowerCase();
+            const coincideBusq = !busqueda ||
+                r.titulo.toLowerCase().includes(texto) ||
+                r.descripcion.toLowerCase().includes(texto) ||
+                r.tag.toLowerCase().includes(texto);
             return coincideNivel && coincideBusq;
         });
     }, [filtroNivel, busqueda]);
@@ -167,8 +155,6 @@ export default function Recomendaciones() {
                         Aprende a identificar y protegerte del contenido deepfake.
                         Estos consejos están pensados para navegar el mundo digital con más confianza y seguridad.
                     </p>
-
-                    {/* Stats rápidos */}
                     <div className="recom-stats">
                         <div className="stat-item">
                             <span className="stat-num">{recomendaciones.length}</span>
@@ -187,10 +173,12 @@ export default function Recomendaciones() {
                     </div>
                 </div>
 
-                {/* Controles: búsqueda + filtros */}
+                {/* Controles */}
                 <div className="recom-controles">
                     <div className="recom-search-wrap">
-                        <span className="search-icon">🔎</span>
+                        <svg className="search-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
                         <input
                             type="text"
                             className="recom-search"
@@ -199,7 +187,7 @@ export default function Recomendaciones() {
                             onChange={e => setBusqueda(e.target.value)}
                         />
                         {busqueda && (
-                            <button className="search-clear" onClick={() => setBusqueda('')}>✕</button>
+                            <button className="search-clear" onClick={() => setBusqueda('')} aria-label="Limpiar búsqueda">×</button>
                         )}
                     </div>
 
@@ -216,7 +204,6 @@ export default function Recomendaciones() {
                     </div>
                 </div>
 
-                {/* Contador de resultados */}
                 {(busqueda || filtroNivel !== 'todos') && (
                     <p className="recom-contador">
                         {recomsFiltradas.length === 0
@@ -226,12 +213,11 @@ export default function Recomendaciones() {
                     </p>
                 )}
 
-                {/* Grid de tarjetas */}
+                {/* Grid */}
                 <div className="recom-grid">
                     {recomsFiltradas.map((r, i) => {
-                        const cfg        = nivelConfig[r.nivel];
-                        const isOpen     = expandida === i;
-
+                        const cfg    = nivelConfig[r.nivel];
+                        const isOpen = expandida === i;
                         return (
                             <div
                                 key={i}
@@ -239,16 +225,13 @@ export default function Recomendaciones() {
                                 onClick={() => toggleExpandida(i)}
                             >
                                 <div className="card-top">
-                                    <span className="card-icono">{r.icono}</span>
                                     <div className="card-meta">
                                         <span className={`recom-nivel ${cfg.className}`}>{cfg.label}</span>
                                         <span className="card-tag">{r.tag}</span>
                                     </div>
                                     <span className={`card-chevron ${isOpen ? 'card-chevron--up' : ''}`}>›</span>
                                 </div>
-
                                 <h3 className="recom-card-title">{r.titulo}</h3>
-
                                 <div className={`recom-card-desc-wrap ${isOpen ? 'recom-card-desc-wrap--open' : ''}`}>
                                     <p className="recom-card-desc">{r.descripcion}</p>
                                 </div>
@@ -256,11 +239,9 @@ export default function Recomendaciones() {
                         );
                     })}
 
-                    {/* Estado vacío */}
                     {recomsFiltradas.length === 0 && (
                         <div className="recom-empty">
-                            <span className="empty-icon">🔍</span>
-                            <p>No encontramos consejos con esos criterios.</p>
+                            <p className="empty-msg">No encontramos consejos con esos criterios.</p>
                             <button
                                 className="empty-reset"
                                 onClick={() => { setBusqueda(''); setFiltroNivel('todos'); }}
@@ -271,7 +252,7 @@ export default function Recomendaciones() {
                     )}
                 </div>
 
-                {/* Leyenda de niveles */}
+                {/* Leyenda */}
                 <div className="recom-leyenda">
                     <p className="leyenda-titulo">¿Qué significan los niveles?</p>
                     <div className="leyenda-items">
@@ -293,30 +274,27 @@ export default function Recomendaciones() {
                 {/* CTA */}
                 <div className="recom-cta">
                     <div className="cta-box">
-                        <span className="cta-icon">🛡️</span>
                         <div className="cta-text">
                             <h2>¿Tienes un contenido sospechoso?</h2>
                             <p>Usa nuestra herramienta de análisis para verificarlo en segundos.</p>
                         </div>
                         <button className="cta-btn" onClick={() => navigate('/home')}>
-                            Analizar ahora →
+                            Analizar ahora
                         </button>
                     </div>
                 </div>
 
-                {/* Formulario de sugerencias */}
+                {/* Sugerencias */}
                 <div className="recom-contact">
                     <div className="contact-box">
                         <h2 className="contact-title">¿Tienes una duda o sugerencia?</h2>
-                        <p className="contact-subtitle">
-                            Escríbenos y te responderemos lo antes posible.
-                        </p>
+                        <p className="contact-subtitle">Escríbenos y te responderemos lo antes posible.</p>
                         {suggStatus === 'ok' ? (
                             <div className="contact-success">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="20 6 9 17 4 12" />
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="20 6 9 17 4 12"/>
                                 </svg>
-                                <span>¡Mensaje enviado! Te responderemos pronto.</span>
+                                Mensaje enviado. Te responderemos pronto.
                             </div>
                         ) : (
                             <form className="contact-form" onSubmit={handleSuggestion}>
@@ -329,11 +307,7 @@ export default function Recomendaciones() {
                                     disabled={suggStatus === 'sending'}
                                 />
                                 {suggError && <p className="contact-error">{suggError}</p>}
-                                <button
-                                    type="submit"
-                                    className="contact-submit-btn"
-                                    disabled={suggStatus === 'sending'}
-                                >
+                                <button type="submit" className="contact-submit-btn" disabled={suggStatus === 'sending'}>
                                     {suggStatus === 'sending' ? 'Enviando...' : 'Enviar mensaje'}
                                 </button>
                             </form>
