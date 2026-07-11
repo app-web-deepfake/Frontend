@@ -268,28 +268,25 @@ export const submitAnalysisFeedback = async (referenceId, { userAgreement, userV
     if (!response.ok) throw new Error(data.error || "Error enviando feedback");
     return data;
 };
-// ─── RACHA / GAMIFICACIÓN ──────────────────────────────────────────────────
+// ── RACHA / GAMIFICACIÓN ──────────────────────────────────────────────────
 
 export const getStreak = async () => {
-    const response = await handleResponse(
-        await fetch(`${API_URL}/streak`, {
-            method: "GET",
-            headers: authHeaders(),
-        })
-    );
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Error obteniendo racha");
+    const res = await fetch(`${API_URL}/streak`, { headers: authHeaders() });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Error obteniendo racha");
     return data;
 };
 
 export const getLeaderboard = async () => {
-    const response = await handleResponse(
-        await fetch(`${API_URL}/streak/leaderboard`, {
-            method: "GET",
-            headers: authHeaders(),
-        })
-    );
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Error obteniendo ranking");
+    const res = await fetch(`${API_URL}/streak/leaderboard`, { headers: authHeaders() });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Error obteniendo ranking");
+    return data;
+};
+
+export const getAdminStats = async () => {
+    const res = await fetch(`${API_URL}/streak/admin/stats`, { headers: authHeaders() });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Error obteniendo estadísticas");
     return data;
 };

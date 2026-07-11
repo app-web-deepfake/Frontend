@@ -12,8 +12,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
 }
 
 .leaderboard-title {
@@ -28,6 +27,23 @@
     color: #9ca3af;
 }
 
+/* Column headers */
+.lb-col-headers {
+    display: grid;
+    grid-template-columns: 28px 1fr 52px 56px;
+    gap: 4px;
+    padding: 0 6px 4px;
+    border-bottom: 1px solid #f3f4f6;
+    margin-bottom: 6px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #9ca3af;
+}
+
+.lb-col-center { text-align: center; }
+
 /* List */
 .leaderboard-list {
     list-style: none;
@@ -35,86 +51,78 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .lb-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 28px 1fr 52px 56px;
     align-items: center;
-    gap: 10px;
-    padding: 7px 10px;
+    gap: 4px;
+    padding: 6px 6px;
     border-radius: 8px;
     background: #f9fafb;
-    transition: background 0.15s;
 }
 
-.lb-row.top-three {
-    background: #fffbeb;
-}
+.lb-row.top-three { background: #fffbeb; }
+.lb-row.is-me     { background: #eff6ff; border: 1px solid #bfdbfe; }
 
-.lb-row.is-me {
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
-}
-
-.lb-rank {
-    width: 22px;
-    text-align: center;
-    font-size: 1rem;
-    flex-shrink: 0;
-}
-
+/* Rank */
+.lb-rank { width: 28px; text-align: center; }
+.lb-medal { font-size: 1rem; }
 .lb-rank-num {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: #9ca3af;
 }
 
+/* Name */
 .lb-name {
-    flex: 1;
-    font-size: 0.87rem;
+    font-size: 0.85rem;
     font-weight: 500;
     color: #1f2937;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .lb-you-tag {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     background: #3b82f6;
     color: white;
     border-radius: 10px;
-    padding: 1px 7px;
+    padding: 1px 6px;
     font-weight: 600;
     flex-shrink: 0;
 }
 
-.lb-streak {
+/* Streak cell */
+.lb-streak-cell {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 3px;
-    flex-shrink: 0;
-}
-
-.lb-streak strong {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     color: #ea580c;
+    font-weight: 600;
 }
 
-.lb-streak-label {
-    font-size: 0.7rem;
-    color: #9ca3af;
+/* Analyses cell */
+.lb-analyses-cell {
+    text-align: center;
+    font-size: 0.82rem;
+    color: #6b7280;
+    font-weight: 500;
 }
 
 /* Hint */
 .leaderboard-hint {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: #9ca3af;
-    margin: 0.9rem 0 0;
+    margin: 0.8rem 0 0;
     text-align: center;
 }
 
@@ -129,11 +137,11 @@
 .leaderboard-skeleton {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .lb-skeleton-row {
-    height: 36px;
+    height: 34px;
     border-radius: 8px;
     background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
     background-size: 200% 100%;
@@ -147,4 +155,4 @@
 
 /* Letra grande */
 .letra-grande .leaderboard-title { font-size: 1.05rem; }
-.letra-grande .lb-name           { font-size: 0.95rem; }
+.letra-grande .lb-name           { font-size: 0.93rem; }

@@ -40,7 +40,7 @@ export default function Leaderboard() {
                     <span className="leaderboard-title">Ranking de rachas</span>
                 </div>
                 <p className="leaderboard-empty">
-                    Sé el primero en aparecer aquí — analiza un contenido hoy 🔥
+                    Sé el primero en aparecer aquí — analiza un contenido hoy
                 </p>
             </div>
         );
@@ -51,25 +51,39 @@ export default function Leaderboard() {
             <div className="leaderboard-header">
                 <IconTrophy size={18} color="#f59e0b" />
                 <span className="leaderboard-title">Ranking de rachas</span>
-                <span className="leaderboard-subtitle">Usuarios más constantes</span>
+                <span className="leaderboard-subtitle">Más constantes</span>
+            </div>
+
+            {/* Columnas */}
+            <div className="lb-col-headers">
+                <span></span>
+                <span>Usuario</span>
+                <span className="lb-col-center">🔥 Racha</span>
+                <span className="lb-col-center">📊 Análisis</span>
             </div>
 
             <ol className="leaderboard-list">
                 {board.map((entry, i) => {
+                    const firstName = entry.name.split(' ')[0];
                     const isMe = user?.name && entry.name === user.name;
                     return (
                         <li key={i} className={`lb-row ${isMe ? 'is-me' : ''} ${i < 3 ? 'top-three' : ''}`}>
                             <span className="lb-rank">
-                                {i < 3 ? MEDAL[i] : <span className="lb-rank-num">{entry.rank}</span>}
+                                {i < 3
+                                    ? <span className="lb-medal">{MEDAL[i]}</span>
+                                    : <span className="lb-rank-num">{entry.rank}</span>
+                                }
                             </span>
                             <span className="lb-name">
-                                {entry.name.split(' ')[0]}
+                                {firstName}
                                 {isMe && <span className="lb-you-tag">tú</span>}
                             </span>
-                            <span className="lb-streak">
-                                <IconFlame size={13} color="#f97316" filled />
+                            <span className="lb-streak-cell">
+                                <IconFlame size={12} color="#f97316" filled />
                                 <strong>{entry.streak}</strong>
-                                <span className="lb-streak-label">días</span>
+                            </span>
+                            <span className="lb-analyses-cell">
+                                {entry.totalAnalyses}
                             </span>
                         </li>
                     );
@@ -77,7 +91,7 @@ export default function Leaderboard() {
             </ol>
 
             <p className="leaderboard-hint">
-                La racha se gana analizando al menos un contenido por día
+                La racha crece al analizar contenido cada día
             </p>
         </div>
     );

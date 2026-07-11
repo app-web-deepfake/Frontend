@@ -1,8 +1,8 @@
 /* Footer.css */
 
 .app-footer {
-    background-color: #0f172a;
-    color: #94a3b8;
+    background-color: #407FC2;
+    color: #e2ecf7;
     padding: 2rem 2rem 1.4rem;
     margin-top: auto;
 }
@@ -31,14 +31,14 @@
 .footer-brand-name {
     font-weight: 800;
     font-size: 1.1rem;
-    color: #f1f5f9;
+    color: #ffffff;
     letter-spacing: 0.01em;
 }
 
 /* Tagline */
 .footer-tagline {
     font-size: 0.8rem;
-    color: #64748b;
+    color: #d6e4f5;
     margin: 0;
     font-style: italic;
 }
@@ -53,21 +53,21 @@
 }
 
 .footer-link {
-    color: #94a3b8;
+    color: #e2ecf7;
     text-decoration: none;
     font-size: 0.82rem;
     transition: color 0.2s;
 }
 
 .footer-link:hover {
-    color: #f1f5f9;
+    color: #ffffff;
 }
 
 /* Bottom */
 .footer-bottom {
     margin-top: 0.8rem;
     padding-top: 0.8rem;
-    border-top: 1px solid #1e293b;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -77,13 +77,13 @@
 
 .footer-copy {
     font-size: 0.75rem;
-    color: #475569;
+    color: #d6e4f5;
     margin: 0;
 }
 
 .footer-disclaimer {
     font-size: 0.7rem;
-    color: #334155;
+    color: #c3d7ee;
     margin: 0;
     text-align: center;
 }
